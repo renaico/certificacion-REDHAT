@@ -1,0 +1,14 @@
+#localeCLT
+
+$localectl set-localectl LANG=fr_FR.utf8
+#cambia el lenguaje a Frances
+
+$yum list langpacks-*
+#Muestra un listado de todos los lenguajes (Langpacks Disponibles)
+
+$yum install langpacks-fr 
+# instala el idio frances
+
+$yum repoquery --whatsupplements langpacks-fr
+#Se determinan que paquetes RPM se requieren para el lenguaje en particular
+
