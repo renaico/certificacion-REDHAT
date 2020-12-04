@@ -1,0 +1,24 @@
+
+
+rutas absolutas
+
+/home/usuario/escritorio
+
+ruta relativa # navego desde donde este posicionado
+
+(posicionado en /home)
+
+~/escritorio/carpeta/archivo.txt
+
+$ls -l
+#long listing format
+$ls -a
+# todos los archivos y carpetas incluyendo ocultos
+$ls -R 
+#recursivo (Muestra todo el arbol de carpetas hacia adentro)
+
+$ cd # cambiar de directorio
+$cd - # cambiar al directorio previo
+$ cd ..  # se mueve un nivel hacia arriba en el directorio padre
+
+

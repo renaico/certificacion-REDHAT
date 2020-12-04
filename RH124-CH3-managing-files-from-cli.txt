@@ -1,0 +1,27 @@
+
+
+Estructura de drectorios
+
+/user -> software instalado, shared libraries, 
+	subdirectorio importantes
+	/usr/bin #user comands
+	/user/sbin # system administrator commands
+	/user/local #locally customized software
+
+/etc # archivos de configuracion especficos del sistema
+
+/var # variable data, deberia persistir en cada reinicio, archivos que cambian dinamicamente como BD, DIRECTORIO CACHE, ETC
+
+/run # runtime data, el contenido de este dir es recreadoe n el inicio. 
+
+/home # Archivos y documentos de los usuarios comunes
+
+/root # home del root
+
+/tmp # archivos temporales (archivos que no sean modificados por mas de 10 dias son eliminados de este directorio)
+
+/boot # archivos necesarios apra el inicio del sistema
+
+/dev # archivos especiales para acceder al hardware (device files)
+
+
