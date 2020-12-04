@@ -1,0 +1,14 @@
+
+prompt
+$ -> indicativo de usuario normal 
+
+# -> promt de root
+
+$whoami
+muestra usuario actual. 
+
+
+ 
+muestra usuario actual. 
+
+
