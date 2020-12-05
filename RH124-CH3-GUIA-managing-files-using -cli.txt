@@ -16,4 +16,27 @@ $ mv *.mp3 Music
 $ mv *.jpg Pictures
 $ mv *.avi Videos
 
-5.- Desde el Home del usua
+5.- Desde el Home del usuario se crea otro set de carpetas para organizar los archivos
+$ mkdir Friends Family work 
+
+6.-  los archivos 1 y 2 se copian al directorio Friends, los archivos 3 y 4 se copian a Family y el resto a work 
+$ cd Friends
+$ cp ~/Music/song1.mp3 ~/Music/song2.mp3 ~/Pictures/snap1.jpg ~/Pictures/snap2.jpg ~/Videos/film1.avi  ~/Videos/film2.avi .
+$ cd ../Family
+$ cp ~/Music/song3.mp3 ~/Music/song4.mp3 ~/Pictures/snap3.jpg ~/Pictures/snap4.jpg ~/Videos/film3.avi  ~/Videos/film4.avi .
+$ cd ../work
+$ cp ~/Music/song5.mp3 ~/Music/song6.mp3 ~/Pictures/snap5.jpg ~/Pictures/snap6.jpg ~/Videos/film5.avi  ~/Videos/film6.avi .
+
+7.- Limpieza
+
+$ rmdir Family Friends # el sistema devuelve errores dado que no son directorios vacios. 
+
+$ rm -r Family Friends # en esta ocacion los directorios y su contenido son borrados
+
+8.- Eliminamos todo el contenido de work
+
+$ cd work
+$ rm *.*
+
+9.- eliminamos el directorio work 
+$ rmdir work 
