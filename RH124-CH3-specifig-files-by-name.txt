@@ -15,7 +15,10 @@ $ls -a # todos los archivos y carpetas incluyendo ocultos
 $ls -R #recursivo (Muestra todo el arbol de carpetas hacia adentro)
 $ls -i # lista inodes
 
+. # directorio actual 
+.. # directorio padre del directorio actual
 
+/.archivo.txt  # indicativo de que archivo.txt es un archivo oculto
 
 $ cd # cambiar de directorio
 $cd - # cambiar al directorio previo

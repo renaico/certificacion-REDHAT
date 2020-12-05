@@ -67,3 +67,14 @@ $ date %r # muestra la hora actual en formato "Current time" (12 hrs)
 $ file # para mostrar el tipo de archivo
 $ file zcat # que tipo de archivo es zcat? 
 
+$ wc ESC+. # cuenta las lineas, palabras, caracterres en el archivo zcat (esto dado que zcat  la ultima palabra en el historial )
+$ wc zacat # cuenta las lineas, palabras, caracterres en el archivo
+
+$ head ESC+. # muestra las primeras 10 lineas de zcat (dado que es la ultima palabra en el historial)
+$ head zcat  # muestra las primeras 10 lineas de zcat
+
+$ tail ESC+. # muestra las uiltimas 10 lineas de zcat (dado que es la ultima palabra en el historial)
+$ tail zcat # muestra las uiltimas 10 lineas de zcat
+
+$ !! # ejecuta el comando mas reciente registrado en el historial. 
+
