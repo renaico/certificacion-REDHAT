@@ -1,5 +1,18 @@
-$mkdir "directory"
-# se crea el directorio 
+$mkdir "directory" # se crea el directorio 
+$mkdir -p directorio-padre/directorio-inferior # crea toda la estructura de carpetas especificadas en caso de no existir
+$ mkdir directorio{1..10} # crea una serie de drectorios (rango) desde el numero 1 hasta el 10
+
+$mkdir -p /home/test
+# se crea el directorio en la ruta especificada (jerarquicamente)
+$ mkdir -p Thesis/Chapter1 Thesis/Chapter2 Thesis/Chapter3
+# se crean las carpetas chapter1-3 dentro del directorio Thesis
+
+$ tree # muestra todo el arbos del directorio
+
+~/ # indicativo del home del usuario (shorcut)
+
+$ mkdir dir1 dir2 # crea los directorios 1 y 2 al mismo tiempo en el directorio actual
+
 $ cp file.old file.new
 # se copia el archivo .old al nuevo archivo .new
 
@@ -14,15 +27,23 @@ $ rm file
 $rmdir directory
 #elimina un directorio vacio
 
-$mkdir -p /home/test
-# se crea el directorio en la ruta especificada (jerarquicamente)
-$ mkdir -p Thesis/Chapter1 Thesis/Chapter2 Thesis/Chapter3
-# se crean las carpetas chapter1-3 dentro del directorio Thesis
 
-
-
-#### copiando archivos
+#### ejemplos
 
 $cp arch1.txt arch1-copia.txt
 $ se copia el archivo arch1.txt al nuevo archivo /(Arch1-copia.txt)
+
+$ cp /directorio . # copia /directorio al directorio actual
+$ cp -r dir1 dir2 # se copia dir1 y todo su contenido dentro de dir2 (recursivo) 
+
+$ mv archivo_1.txt archivo_1_revisado.txt # mv puede ser utilizado para renombrar archivos 
+$ mv archivo_1.txt /directorio/archivo_1.txt # mueve el archivo a un directrio diferente al actual 
+
+$rm # rm elimina archivos y no elimina directorios 
+$ rm archivo_1.txt # elinina el archivo
+$ rm -R /directorio # elimina subdirs y su contenido. 
+$ rm -ri /directorio # recursivo + interactivo, el sistema consultara en cada eliminacion 
+
+$rmdir # para eliminar directorios que esten vacios. 
+$ rm -r /directorio # elimina /directorio y su contenido, rm -r elimina dorectorios no vacios
 

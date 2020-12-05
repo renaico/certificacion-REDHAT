@@ -24,4 +24,8 @@ Estructura de drectorios
 
 /dev # archivos especiales para acceder al hardware (device files)
 
+/boot # particion de arranque (gestor de arranque GRUB)
 
+/bin # comandos de usuario regular 
+
+/sbin # comandos del super usuario 

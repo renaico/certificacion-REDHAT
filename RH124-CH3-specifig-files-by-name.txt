@@ -10,15 +10,19 @@ ruta relativa # navego desde donde este posicionado
 
 ~/escritorio/carpeta/archivo.txt
 
-$ls -l
-#long listing format
-$ls -a
-# todos los archivos y carpetas incluyendo ocultos
-$ls -R 
-#recursivo (Muestra todo el arbol de carpetas hacia adentro)
+$ls -l #long listing format
+$ls -a # todos los archivos y carpetas incluyendo ocultos
+$ls -R #recursivo (Muestra todo el arbol de carpetas hacia adentro)
+$ls -i # lista inodes
+
+
 
 $ cd # cambiar de directorio
 $cd - # cambiar al directorio previo
 $ cd ..  # se mueve un nivel hacia arriba en el directorio padre
+
+$ pwd # muestra la ubicacion actual (ruta absoluta del directorio actual)
+
+$ touch archivo.txt # touch crea archivos vacios, ene ste caso crea el archivo vacio  "archivo.txt"
 
 
