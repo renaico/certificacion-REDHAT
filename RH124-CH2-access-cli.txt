@@ -4,11 +4,66 @@ $ -> indicativo de usuario normal
 
 # -> promt de root
 
-$whoami
-muestra usuario actual. 
+shorcuts graficos 
+
+ALT+F2 (ejecutar) gnome-terminal + enter # llama a una terminal desde un shorcut grafico
+
+super + L # bloquea la maquina 
 
 
- 
-muestra usuario actual. 
+$whoami #muestra usuario actual. 
 
+### ejecucion de mas de un comando por linea # separados por punto y coma
+
+$comando1; comando2
+
+
+### Opciones del comando DATE
+
+%H # hora en formato HH
+%M # Minutos en formato MM
+%S # segundos en formato SS
+%d # dia en formato dd 
+%m # mes en formato mm 
+%y # año en formasto yy
+%z # abreviatura de la zona horaria
+%F # fecha completa en formasto yyyy-mm-dd 
+%T # hora en formato (HH:MM:SS)
+
+$ date --set "2020-12-05 23:00:00"
+# configuta fecha y hora
+
+$ head  # por defecto muestra las priemras 10 lineas de un texto
+$ head -n 5 archivo.txt  # muestra las primeras 5 lineas de archivo.txt
+
+$ tail # por defecto muetras las ultimas 10 lineas de un texto o archivo.
+$ tail -n 7 # las ultimas 7 
+
+$ wc # cuenta lineas, palabras y caracteres
+$ wc -l archivo.txt # cuenta las lienas de archivo.txt 
+$ wc -w archivo.txt # cuentas las palabras de archivo.txt 
+$ wc -c archivo.txt # cuenta la cantidad de caracteres en archivo.txt
+
+
+### history 
+
+$ !number  # ejecuta el registro historico en la pocision "number"
+$ ESC + . # muestra la ultima palabra en el historial
+$ ALT + . # navega al comando anterior (cada vez aue aprieta retrocede un nivel en el historial)
+
+### cli shorcuts
+
+$ CTRL + a # mueve el cursor al comienzo de la linea
+$ CTRL + e # mueve el cursor al final de la linea
+$ CTRL + u # borra desde la pocision del cursor hasta el comienzo de la linea
+$ CTRL + k  # borra desde el cursos hasta el final de la linea
+$ CTRL + r # busca un patron (string) en el historial 
+
+####LAB CH2
+
+$ date # muestra la hora y fecha actuales
+$ date %r # muestra la hora actual en formato "Current time" (12 hrs) 
+
+$ file # para mostrar el tipo de archivo
+$ file zcat # que tipo de archivo es zcat? 
 

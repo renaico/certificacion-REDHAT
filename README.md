@@ -1,2 +1,2 @@
 # documentacion
-Arbol de Documentacion escrita por Renaicorps
+Documentacion y resumenes de los libros RH124 y RH134 de redhat...  escrita por Renaicorps

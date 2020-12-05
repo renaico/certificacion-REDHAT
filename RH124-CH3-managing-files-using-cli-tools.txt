@@ -1,0 +1,28 @@
+$mkdir "directory"
+# se crea el directorio 
+$ cp file.old file.new
+# se copia el archivo .old al nuevo archivo .new
+
+$ cp -r directory.original dorectorio.copiado
+#se copia el directorio y todo su contenido (-r recursivo) a la nueva ubicacion 
+
+$ mv file.old file.new
+# se mueve el archivo .old a .new (el archivo .old deja de existir)
+$ rm file
+#elimina un archivo 
+
+$rmdir directory
+#elimina un directorio vacio
+
+$mkdir -p /home/test
+# se crea el directorio en la ruta especificada (jerarquicamente)
+$ mkdir -p Thesis/Chapter1 Thesis/Chapter2 Thesis/Chapter3
+# se crean las carpetas chapter1-3 dentro del directorio Thesis
+
+
+
+#### copiando archivos
+
+$cp arch1.txt arch1-copia.txt
+$ se copia el archivo arch1.txt al nuevo archivo /(Arch1-copia.txt)
+
