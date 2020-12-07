@@ -1,0 +1,19 @@
+$ln archivo.txt /tmp/hardlink-to-archivo.txt
+#crea un hard link apuntando a archivo.txt
+'''el archivo y el hard link comparten permisos, timestamp, user/group ownership y el mismo contenido, los cambios se reflejan
+tanto en el archivo como en el link'''
+
+#si archivo es borrado se conserva el hardlink, y toda su informacion
+
+##SOFT LINKS
+
+$ln -s archivo.txt ~/Escritorio/link-archivo.txt
+#se cera el soft lint link-archivo.txt en el escritoio apuntando a archivo.txt
+''' cuando el archivo original es eliminado el link permanece presente, 
+sin embargo ya no es posible abrir el contenido del archivo, 
+al contrario del hardlink si si se preserva el contenido'''
+
+$ln -s /etc ~/config
+$cd ~/config
+'''al crear softlink apuntando a directorios estos se comportan como si lo fueran'''
+

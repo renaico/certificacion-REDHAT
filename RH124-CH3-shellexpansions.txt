@@ -1,0 +1,22 @@
+*   # any string
+?   # any single caracter
+[abc...]    #cualqueira de los caracter dentro de los blackets
+[!abc...]   #cualquier caracter que no sea lo que estan dentro de los brackets
+[^abc...]   #cualquier caracter que no sea lo que estan dentro de los brackets
+[[:alpha:]] #cualquier letra
+[[:lower:]] #cualquier minuscula
+[[:upper:]] #cualquier mayuscula
+[[:alnum:]] #cualquier alfanumerico, lera o numero
+[[:punct:]] #cualquier caracter imprimible, menos espacio o alfanumerico
+[[:digit:]] #cualquier digito entre 0-9, (SOLO)
+[[:space:]] #espacio
+
+
+$ls *a  # lista todo lo que comienza con a
+$ls *a* # lista lo que contenga alfanumerico
+$ls [ac]*   # lista lo que comienza por a o por cualquier
+$ls ????   #lista todos nombres con 4 caracteres
+$ls ?????   #lista todos nombres con 5 caracteres
+
+~user # /home/user
+~root # /root
