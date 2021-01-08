@@ -1,0 +1,77 @@
+1.- conexion ssh 
+$ssh student@servera
+
+2.-usando 'brace expansion' creamos dos archivos vacios en la ruta: /home/student/Documents/project_plans, si no existiera la ruta usar la opcion -p de mkdir para crear la ruta
+
+$mkdir -p ~/Documents/projects_plans
+$touch ~/Documents/projects_plans/{sason1,season2}_project_plan.odf
+
+$ls -lR ~/Documents/
+
+3.- Usando 'brace expansion' crear 12 archivos de practica con la siguiente  nomenclatura tv_seasonX_episodeY.ogg (X representa el nimero de la teamporada e Y el numero de episodio) seran 2 temporadas de 6 episodios cada una. 
+
+$ touch tv_season{1..2}_episode{1..6}.ogg
+
+4.- Creamos 8 archivos con la nomenclatura mistery_chapterX.odf, X sera igual al numero de cada capitulo de un total de 8
+
+$touch mistery_chapter{1..8}.odf
+
+5.-Con una sola linea de comando crear dos subdirectorios llamados season1 y season2 bajo del directorio Videos, con el fin de organizar los episodios anteriormente creados
+
+$ cd ~/Documents/project_plans
+$ mkdir -p Videos/season{1..2}
+
+6.- Ahora organizaremos los episodios de video segun corresponda. 
+
+$ mv tv_season1* Videos/season1
+$ mv tv_season2* Videos/season2
+$ ls -R Videos
+
+7.- Con un solo comando crear una estructura de directorios para organizar los capitulos de la novela
+
+$ mkdir -p ~/Documents/my_bestseller/chapters
+$ ls -R ~/Documents
+
+8.- Crear 3 directoriso mas bajo el directorio 'my_bestseller'. Nombra los directorios 'editor, changes, vacation'. 
+
+$ mkdir ~/Documents/my_bestseller/{editor,changes,vacation}
+$ ls -R Documents
+
+9.- Mover todos los episodios de la novela al directorio 'chapters' usando la sintaxys mas simple posible. 
+
+$ cd Documents/my_bestseller/chapters
+chapters ]$ mv ~/mystery_chapter* .
+
+(el punto referencia al directorio actual)
+
+10.- los dos primeros episodios de la novela se mueven al directorio editor
+
+$ cd ~/Documents/my_bestseller/chapters
+$ mv mystery_chapter{1..2}.odf ../editor
+$ ls ../editor
+
+11.- los capitulos 7 y 8 se mueven a vacation
+
+$ mv mystery_chapter{7..8}.odf ../vacation
+
+12.-  Desde el directorio actual cambiar al directorio ~/Videos/season2 y luego copiar al el 1° episodio de la segunda temporada al directorio vacation
+
+$ cd ~/Videos/season2
+$ cp episode1.ogg ~/Documents/my_bestseller/vacation
+
+13.-  con un solo cd cambiar desde la ubicacion actual hasta el directorio ~/Documents/my_bestseller/vacation
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
