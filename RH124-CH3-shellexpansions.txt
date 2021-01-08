@@ -20,3 +20,51 @@ $ls ?????   #lista todos nombres con 5 caracteres
 
 ~user # /home/user
 ~root # /root
+
+##brace expansion. 
+
+$ echo {sunday,monday,tuesday,wednesday}.log
+sunday.log monday.log tuesday.log wednesday.log
+
+$echo file{1..4}.txt
+file1.txt file2.txt file3.txt file4.txt
+
+$echo file{a..c}.txt
+filea.txt fileb.txt filec.txt
+
+$echo file{a,b}{1,2}.txt
+filea1.txt filea2.txt fileb1.txt fileb2.txt
+
+$echo {a{1,2},b,c}.txt
+filea1.txt filea2.txt fileb.txt filec.txt
+
+$pwd
+/home/student/glob
+$mkdir ../rhel{6,7,8}
+$ls ../rhel*
+## los directorios se crean en /home/student
+
+###VARIABLES
+
+variablename=value
+
+$echo "hoy dia es $(date +%A)"
+hoy dia es martes
+
+[RMB-MJRO-M2 tmp]# echo el valor de $HOME es tu directorio actual
+el valor de /root es tu directorio actual
+[RMB-MJRO-M2 tmp]# echo el valor de \$HOME es tu directorio actual
+el valor de $HOME es tu directorio actual
+
+[RMB-MJRO-M2 tmp]# myhost=$(hostname -s); echo $myhost
+RMB-MJRO-M2
+
+[RMB-MJRO-M2 tmp]# echo "******** hostname is $myhost *******"
+******** hostname is RMB-MJRO-M2 *******
+
+[RMB-MJRO-M2 tmp]# echo " la variable $myhost muestra el contenido de $(hostname -s) "
+ la variable RMB-MJRO-M2 muestra el contenido de RMB-MJRO-M2 
+[RMB-MJRO-M2 tmp]# echo ' la variable $myhost muestra el contenido de $(hostname -s) '
+ la variable $myhost muestra el contenido de $(hostname -s) 
+# las comillas siemples muestran el contenido de del texto tal cual se escribio. 
+

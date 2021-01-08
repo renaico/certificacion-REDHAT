@@ -1,0 +1,107 @@
+
+0   stdin       standard inpunt     teclado     ro
+1   stdout      standard output     terminal    wo
+2   sterr       standard error      terminal    wo
+3+  filename    other files         none        r y/o w
+
+> file  # redirige a un archivo
+>>file  # append, redirige la salida a un archivo, pero escribe al final del mismo sin alterar el contenido previo
+2> file # redirige los errores a un archivo
+2> /dev/null # redirige los errores a /dev/null, los descarta
+
+> file 2> &1 
+&> file         # redirige stdout/sterr a un archivo sobreescribiendolo 
+
+>> file 2> &1
+&>> file        # stdout/stderr es redirigido a un archivo y agregado al final.
+
+ejemplos de redireccion 
+
+$ date > saved-timestamp
+# guiarda la fecha actual en un archivo 
+
+$ tail -n 100 /var/log/dmesg > /last-100-boot-msg
+# guarda las ultimas 100 lineas del log dmesg en el archivo especificado
+
+cat file1 file2 file3 file4 > los-cuatro-en-uno.txt
+# el contenido de los 4 archivos es guardado en un solo archivo. 
+
+$ ls -a /home/student > mis-archivos.txt
+# lista todo el contenido del home incluyendo arch ocultos y regulares
+
+$ echo "un texto" > /tmp/un-archivo.txt 
+# envia cualquier texto a un nuevo archivo
+
+$ echo "otro texto del orto" >> /tmp/un-archivo.txt
+# este texto es adjuntado al final del archivo 
+
+$ diff previus.file current.file >> /tmp/tracking.changes
+# comapara los archivos y envia las diferecnia al final del archivo en tmp
+
+$ find /etc -name passwd 2> /dev/null
+# este comando busca dentro del directorio /etc, muestra la salida normalmente, sin embargo los erroes son enviados a /dev/null (dev/null)
+
+$ find /etc -name passwd > passwd.txt 2> /dev/null 
+# separa la salida del comando de los errores, esos no seran mostrados y seran eviados a /dev/null, la salida del comando es alamacenada en el archivo
+
+$ find /etc -name passwd > passwd.txt 2> /tmp/errores
+los erroes se almacenan en el archivo /tmp/errores y la salida del comando en el archivo passwd.txt
+
+
+$ find /etc -name passwd &> /tmp/err-out.txt
+# almacena tanto errores como salida del comando en el mismo archivo 
+
+$ find /etc -name passwd >> /tmp/err-out.txt 2>&1
+# agrega la salida y los erroes al final del archivo
+
+
+'''pipelines
+
+la salida del primer comando se transforma en la entrada del segundo'''
+
+$ ls -l /usr/bin | less
+# lista el contenido de /usr/bin y lo muestra pagina por pagina (less)
+
+$ ls > archivo | less 
+# la salida de ls se guarsa en el archivo y este es mostyrado pagina por pagina con less
+
+$ ls -l | tee /tmp/saved-tee | less 
+# la salida del comando ls es almacenada en el archivo, al mismo tiempo que dicho archivo es abierto y mostrado pagina por pagina por less
+
+# si usamos tee al final de un pipe, dicha salida se puede almacenar en un archivo 
+$ ls -t | head -n 10 | tee /tmp/lista-de-10.txt
+# el comando anterior muestra las 10 primeras lineas del listado, al mimso tiempo esta salida es almacenada en un archivo. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

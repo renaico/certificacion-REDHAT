@@ -1,0 +1,37 @@
+ 
+$ man -k "palabra"
+
+buscara "palabra" en el man
+
+RH124-CH4-GUIA-leyendo-el-man
+
+$ man gedit 
+#muestra el manual de gedit
+
+$ gedit + manual 
+# muestra el manual de gedit (segunda formula)
+
+$ man -t passwd > passwd.ps
+# crea un archivo formateado del man de passwd 
+
+$ file passwd.ps
+# describe el tipo de archivo que es passwd.ps
+
+$ man -k  postscript viewer
+# el resultado del anterior comando mostrara opciones para abrir archivos .ps (postscript)
+destaca evince
+
+$ man evince
+puede ser usado desde la consola. 
+
+$ evince passwd.ps
+abre el archivo .ps (como un pdf)
+
+$ evince -w passwd.ps
+abre el archivo en modo preview
+
+$ evince -i 3 passwd.ps
+abre el archivo en lña 3° pagina
+
+$ pinfo evince 
+manual pinfo de evince 
