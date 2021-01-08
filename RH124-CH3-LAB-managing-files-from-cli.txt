@@ -60,6 +60,57 @@ $ cd ~/Videos/season2
 $ cp episode1.ogg ~/Documents/my_bestseller/vacation
 
 13.-  con un solo cd cambiar desde la ubicacion actual hasta el directorio ~/Documents/my_bestseller/vacation
+	listar los archivos
+	usa el directorio anterior como argumento para volver al directorio 'season2'
+	en dicha ubicacion copiar el arch ep2 en el directorio vacation
+	usar el acceso rapido para volver al directorio vacation
+
+$ cd ~/Documents/my_bestseller/vacation
+$ ls 
+$ cd - 
+''' el simbolo - es indicativo del dorectorio previo '''
+/home/student/Videos/season2
+$ cp *episode2.ogg ~/Documents/my_bestseller/vacation
+$ cd -
+$pwd
+/home/student/Docuements/my_betseller/vacation
+
+14.- Copiar los capitulos 5 y 6 desde el directorio chapters al directorio changes 
+	con los corchetes se puede hacer match con parametros especificos
+
+$ cd ~/Documents/my_bestseller
+$ cp chapters/mystery_capter[56].odf changes
+$ ls changes
+
+15.- mover al directorio changes
+	hacer copias del  archivos 5, el primero con fecha (date %F) y el segundo con timestamp (date %s)
+
+$ cd changes
+$ cp mystery_chapter5.odf mystery_chapter5_$(date +%F).odf
+$ cp mystery_chapter5.odf mystery_chapter5_$(date +%s).odf
+$ ls
+
+16.- Eliminar el directorio changes (y su contenido)
+
+$ pwd
+/home/student/Documents/my_bestseller/changes
+$ rm mystery*
+$ cd .. 
+$ pwd
+/home/student/Documents/my_bestseller/
+$ rmdir changes
+$ ls
+
+17.-  Eliminar el directorio vacation con la opcion -r (recursivo)
+
+$ rm -r vacation
+
+18.- crear un hardlink  para el archivo '~/Documents/project_plans/season2_project_plan.odf'
+	el hardlink lleva por nombre '~/Documents/backups/season2_project_plan.odf.back'
+	queda protegido contra eliminacion accidental del archivo original, los cambios en el archivo original se reflejan en el hardlink
+	
+$ mkdir ~/Documents/backups
+$ ln ~/Documents/project_plans/season2_project_plan.odf ~/Documents/backups/season2_project_plan.odf.back
 	
 
 
