@@ -1,0 +1,29 @@
+
+1.-cambiar la variable PS1 del usuario student [\u@\h \t \w]$
+1.1.- conexion ssh 
+$ ssh student@servera
+
+1.2.- editar bashrc
+
+$ vim ~/.bashrc
+
+PS1='[\u@\h \t \w]$'
+
+1.3.- reconectarse al servidor
+
+2.- variable
+
+$ file=tmp.qwerty
+$ echo $file
+tmp.qwerty
+$ ls -l $file
+$ rm $file
+$ ls -l $file
+.. no such file.. 
+
+$ export EDITOR=vim 
+$ echo $EDITOR
+vim 
+
+$ exit
+

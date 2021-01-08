@@ -1,0 +1,9 @@
+1.- conexion ssh a servera
+$ ssh student@servera
+
+2.- crear un hard link apuntando a ~/files/source.file, debe llamarse ~/backups/source.backups
+$ln ~/files/source.file ~/backups/source.backups
+
+3.- crear un softlink apuntando a /tmp, debe llamarse ~/tempdir
+$ln -s /tmp ~/tempdir
+
