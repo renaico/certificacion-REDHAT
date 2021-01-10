@@ -1,0 +1,45 @@
+1.- conecion al servidor 
+$ ssh student@servera
+
+2.-become root
+$ sudo -i 
+
+3.- crear el directorio /home/consultants
+$ mkdir /home/consultants
+
+4.- Otorgar la propiedad del directorio consultants al grupo consultants
+$ chown :consultants /home/consultants
+
+5.- los permismo del directorio consultants deben permitir que los miembros del grupo consultants
+puedan crear, eliminar y editar archivos dentro del directorio. Los 'otros' no deben poder acceder
+
+$ ls -ld /home/consultants
+$ chmod g+w /home/consultants
+$ chmod 770 /home/consultants
+$ ls -ld /consultant/consultants
+
+6.- log como consultant1 y revisar 
+
+$ exit
+$ su - consultant1
+
+$ cd /home/consultant
+$ touch archivo-test.txt
+$ ls -l archivo-test.txt
+
+8.- el grupo consultants debe ser el propietario del archivo-test.txt
+
+$ chown :consultants archivo-test.txt
+
+10.- log como consultan2 y revisar
+
+$ su - consulant2
+
+10.1.- navegar en el directorio /home/consultants, consultant2 debe ser capaz de 
+agregar contenido en el directorio 
+
+$ cd /home/consultants
+$ echo "texto" >> /home/consultants/archivo2.txt
+$ cat /home/consultants/archivo2.txt
+
+
