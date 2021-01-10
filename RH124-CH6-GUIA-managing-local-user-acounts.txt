@@ -1,0 +1,41 @@
+
+1.-coneccion con el servidor 
+
+$ ssh student@servera
+
+2.- become root
+
+$ sudo -i
+
+3.- crear el usuario "operator1", confirmar su existencia
+$ useradd operator1
+$tail /etc/passwd
+
+4.- cambiar el password del usuario operator1
+$ passwd operator1
+pass:
+pass:
+
+5.- Crear los usuarios operator2 y operator3 con sus respectivas passwrosd
+
+$ useradd operator2
+$ passwd operator2
+pass:
+pass:
+
+$ useradd operator3
+$ passwd operator3
+pass:
+pass:
+
+6.-  Editar los usuarios operator1 y operator2 con un comentarios para cada uno "Opetaror one" "Opetaror two", verificar los cambios
+
+$ usermod -c "Opetaror one" operator1
+$ usermod -c "Opetaror two" operator2
+$ tail /etc/passwd
+
+7.- Eliminar el usuario operator3 sin conservar archivos ni directorios personales del usuario
+
+$ userdel -r operator3
+$ tail /etc/passwd
+

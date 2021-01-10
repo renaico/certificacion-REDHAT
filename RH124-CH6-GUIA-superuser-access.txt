@@ -1,0 +1,45 @@
+
+
+1.- Conexion con el server 
+
+$ ssh student@servera
+
+2.- Comando de exploracion de las caracteristicas del usuario actual 
+
+renaico@RMB-MJRO-M2 ~]$ id
+uid=1000(renaico) gid=1000(renaico) grupos=1000(renaico),3(sys),90(network),98(power),991(lp),998(wheel)
+[renaico@RMB-MJRO-M2 ~]$ pwd
+/home/renaico
+[renaico@RMB-MJRO-M2 ~]$ echo $HOME
+/home/renaico
+[renaico@RMB-MJRO-M2 ~]$ echo $PATH
+/home/renaico/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin
+[renaico@RMB-MJRO-M2 ~]$ 
+
+
+
+3.- Comando de exploracion de las caracteristicas del usuario root
+
+[RMB-MJRO-M2 ~]# id
+uid=0(root) gid=0(root) grupos=0(root)
+[RMB-MJRO-M2 ~]# pwd
+/root
+[RMB-MJRO-M2 ~]# echo $HOME
+/root
+[RMB-MJRO-M2 ~]# echo $PATH
+/root/.local/bin:/home/renaico/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin:/usr/lib/jvm/default/bin
+[RMB-MJRO-M2 ~]# 
+[RMB-MJRO-M2 ~]# 
+[RMB-MJRO-M2 ~]# exit
+
+
+4.- Verificasmos el estado del usuario actual en cuanto a los privilegios de root (Sudoers)
+
+[RMB-MJRO-M2 ~]# cat /etc/sudoers.d/renaico 
+
+
+%admin ALL=(ALL) ALL
+[RMB-MJRO-M2 ~]# exit
+
+
+

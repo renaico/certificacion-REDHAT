@@ -1,0 +1,5 @@
+
+1.- Enviar todo el contenido del home del usuario a un archivo, incluir los archivos y directorio ocultos
+
+$ ls -al /home/student > editing-final-lab.txt
+

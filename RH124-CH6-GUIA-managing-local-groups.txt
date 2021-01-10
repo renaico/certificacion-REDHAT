@@ -1,0 +1,59 @@
+1.- conexion al servidor 
+
+$ ssh student@servera
+
+2.- become root
+
+$ sudo -i 
+
+3.- Crear el grupo suplementario "operators" (GID=30000)
+
+$ groupadd -g 30000 operators
+
+4.- crear el grupo "admin" como grupo suplementario adicional
+
+$ groupadd admin
+
+5.- Confirmar la existencia de los dos Grupos
+
+$ tail /etc/group
+
+6.-  los usuarios operator1, operator2 y operator3 deben ser parte del grupo operators
+
+$ usermod -aG operators operator1
+$ usermod -aG operators operator2
+$ usermod -aG operators operator3
+
+7.- Confirmar los cambios anteriores
+
+$ id operator1
+$ id operator2
+$ id operator3
+
+8.- Los usuarios sysadmin1,sysadmin2 y sysadmin3 debe pertenecer al grupo admin, se entregaran permisos de super usuarios a los miembros del grupo admin. Corroborar que todos los usuarios tienen permisos de root. 
+
+8.1.- agregar grupo suplemntario
+$ usermod -aG admin sysadmin1
+$ usermod -aG admin sysadmin2
+$ usermod -aG admin sysadmin3
+
+8.2.- confirmar la pertenencia al grupo 
+
+$ id sysadmin1
+$ id sysadmin2
+$ id sysadmin3
+
+$ tail /etc/group
+
+7.4.- Crear un archivo en el directorio /etc/sudoers.d para otorgar permisos de superususrio al grupo admin 
+
+$ echo "%admin ALL  ALL=(ALL)" >> /etc/sudoers.d/admin
+
+7.5.- cambiar a cada usuario y confirmar los privilegios anterior mente asignados. 
+
+$ su - sysadmin1
+$sudo cat /etc/sudoers.d/admin
+
+ 
+ 
+ 
