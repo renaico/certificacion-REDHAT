@@ -1,0 +1,44 @@
+
+$ ls -l test
+#long listing 
+
+$ ls -ld /home
+# listado de un directorio
+
+ugo --> rwx 
+
+## Cambiando permisos 
+
+chmod quien-que-cual file/directory 
+
+quien = ugo
+
+que -> +,-,=
+
+cual -> rwx 
+
+ejemplo -> 
+
+$ chmod ugo+rwx /home/archivo
+
+$ chmod go-rx /home/archivo
+# queta los permiso de lectura y ejecucion para el grupo y los otros
+
+##metodo numerico 
+
+rwx -> 421
+
+chmod 644 /home/archivo 
+rw- > u 
+-w- > g
+-w- > o
+
+Cambio de propiedad
+
+$ chown usuario archivo
+$ chown -R usuario directorio
+usuario es propietario del directorio y todos los archivos dentro del directorio
+
+$ chown :admins directorio
+
+
