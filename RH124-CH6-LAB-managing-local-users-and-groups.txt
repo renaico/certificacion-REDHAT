@@ -1,0 +1,44 @@
+
+
+1.- conecion al servidor
+
+$ ssh student@servera
+
+2.- Los usuarios nuevos y actuales deberan cambiar password cada 30 dias 
+
+$ vim /etc/login.defs
+
+PASS_MAX_DAYS = 30 
+
+3.- crear el grupo consultants con el gid 35000
+
+$ sudo groupadd -g 35000 consultants
+
+4.-  otorgar derechos del super susuarios al grupo consultants
+
+$ echo "%consultants ALL=(ALL) ALL" >> /etc/sudoers.d/consultants
+
+5.- incluir a los susuarios consultants al grupo consultants
+
+$ sudo usermod -aG consultants cosultant1
+$ sudo usermod -aG consultants cosultant2
+$ sudo usermod -aG consultants cosultant3
+
+6.- las cuentas consultant expiran en 90 dias apartir de ahora. 
+
+$ date +%F
+$ date -d "+90 days" +F
+
+$ sudo chage -E 2021-07-09 consultant1
+$ sudo chage -E 2021-07-09 consultant3
+$ sudo chage -E 2021-07-09 consultant2
+
+7.-  el cambio de passwords es requerido cada 15 dias para el ususario consultant2
+
+$ sudo chage -M 15 consultant2 
+
+8.- las contraseas deben ser cambiadas en el primer login 
+
+$ sudo chage -d 0 consultant1
+$ sudo chage -d 0 consultant2
+$ sudo chage -d 0 consultant3
