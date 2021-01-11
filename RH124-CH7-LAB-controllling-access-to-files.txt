@@ -1,0 +1,24 @@
+1.- conexion al servidor, become root
+$ ssh student@servera
+$ sudo -i
+
+2.- crear directorio /home/techdocs
+$ mkdir /home/techdocs
+
+3.- el grupo techdocs debe ser el owner del directorio /home/techdocs
+
+$ chown :techdocs /home/techdocs
+
+4.- Verificarque los mienbros del gruupo puedan agregar y editar contenidodentro del directorio
+$ su - tech1
+$ touch /home/techdocs/test.txt
+##recibimos error##
+##no hay permisos de escritura para el grupo techdocs###
+
+5.- Configurar los permisos adecuados para el grupo techdocs sobre el directorio /home/techdocs
+setgid (2), rwx para ug, o no tendra permisos 
+
+$ chmod 2770 /home/techdocs
+$ ls -ld /home/techdocs
+
+6.- Modificar la umas global para que los 'otros' notengan acceso

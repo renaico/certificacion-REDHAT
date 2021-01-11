@@ -1,0 +1,24 @@
+managing default permissions and file access
+
+# permisos especiales
+(para los nuevos archivos)
+
+u+s -> suid
+# los archivos se ejecutan como el owner no como el que lo ejecuta, no tiene efecto en directorios
+
+g+s -> sgid
+# los archivos se ejecutan como el grupo owner, los archivos nuevvos creados dentro del directorio ajustan la propiedad del grupo 
+al grupo oner del directorio
+
+o+t -> sticky
+# sin efecto en los archivos, usuarios con acceso al directorios solo pueden eliminal los archivos de los cuales son dueños, 
+los archivos que son propiedad de otros grupos no puedens er elinados por cualquier usuario fuera del grupo owner 
+
+
+## definicion de permisos especiales (numericos)
+
+setuid -> 4
+
+setgid -> 2 
+
+sticky -> 1 

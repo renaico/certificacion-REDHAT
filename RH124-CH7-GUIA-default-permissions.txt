@@ -1,0 +1,46 @@
+
+
+1.- conexion al server
+$ ssh student@servera
+
+2.- log como operator1
+$ sudo - operator1
+
+4.- crear el directorio /tmp/shared, dentro del mismo crear un archivo nuevo y revisar los permisos por defecto. 
+$ mkdir /tmp/shared
+$ ls -ld /tmp/shared
+$ touch /tmp/shared/default
+
+$ ls -l /tmp/shared/defaults
+
+5.- el grupo operator debe ser el owner del directorio /tmp/shared, confirmar la nueva propiedad
+
+$ chown :operators /tmp/shared
+$ ls -ld /tmp/shared
+$ touch /tmp/shared/group
+$ ls -l /tmp/shared/group
+
+6.- Los nuevos archivos deberan pertener al grupo operators
+
+$ chmod g+s /tmp/shared
+$ touch /tmp/shared/oopp-test.txt
+$ ls -l /tmp/shared/oopp-test.tzt
+
+7.- Crear un nuevo archivo dentro del directorios /tmp/shared
+guardar la propiedad y los permisos
+cambar la umask del usuario operator1
+Crear otro archivo y verificar los permisos
+
+$ echo "text" >> /tmp/shared/oopp-test2.txt
+$ ls -l /tmp/shared/oopp-test2.txt
+$ umask 027
+$ touch  /tmp/shared/oopp-test3.txt
+$ ls -l /tmp/shared/oopp-test3.txt
+
+8.- cambiar la umas de operator1 para que los otros no tengan acceso
+
+$ ssh operator1@servera
+$ echo "umask 007" >> ~/.bashrc
+
+## al volver a logear deberia aparecer la umask recientemente configurada
+
