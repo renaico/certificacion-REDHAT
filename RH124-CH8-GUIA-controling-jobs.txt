@@ -1,0 +1,59 @@
+RH124-CH8-GUIA-controling-jobs
+1.- conexio al server 
+$ ssh student@servera
+
+2.- en otra ventana crear un nuevo directorio (/home/student/bin)
+    dentro crear el siguiente script:
+
+$ mkdir ~/bin
+$ vim ~/bin/control
+
+#!/bin/bash
+while true; do 
+    echo -n "$@ " >> ~/bin/control_outfile
+    sleep   1
+done
+
+#otorgamos permisos de ejecucion 
+$ chmod a+x ~/bin/control
+
+3.- Ejecutamos el script para que continuamente aparezca la palabra "technical" y se alamacene en el archivo ~/bin/control_outfile
+
+$ ./control technical
+
+## en otra ventana verificamos que el proceso corra correctamente 
+$ tail -f ~/bin/control_outfile 
+tecnical tecnical tecnical tecnical tecnical tecnical tecnical 
+tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical 
+tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical tecnical 
+tecnical tecnical tecnical tecnical
+
+## en otra pestaña suspendemos el proceso con cntrl + z 
+
+$ ./control tecnical
+^Z
+[1]+  Detenido                ./control tecnical
+
+
+## en una nueva terminal o pestaña revisamos estado del proceso
+$ jobs
+[1]+  Detenido                ./control tecnical
+
+## usando bg reiniciamos el proceso control technical
+$ bg
+[1]+ ./control tecnical &
+
+en otra terminal ejecutamos dos instancias mas del proceso con las palabras documents y database
+
+$ ./control documents &
+[1] 39764
+
+$ ./control database &
+[1] 39765
+
+## traemos al frente a los procesos documents y database
+
+$ fg %2
+$ fg %3
+
+

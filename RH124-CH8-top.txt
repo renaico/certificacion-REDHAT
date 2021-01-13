@@ -1,0 +1,39 @@
+RH124-CH8-top
+
+teclas de top
+
+? o h -> help
+
+l -> load
+t -> theads
+m -> memory
+
+1 -> cpu (resumen de todas las cpu)
+
+s -> refresh rate en decimales 
+
+b -> reverese highlightning x running processes
+
+shift + b -> letra negrita (bold) en el encabezado para procesos corriendo 
+
+shift + h -> resumen de procesos o hilos indivuduales
+
+u 
+shift + u  -> filtra por nombre de usuario
+
+shift + m -> ordena los procesos segun el uso de la memoria 
+
+shift + p -> ordena los procesos segune el uso de la cpu 
+
+k -> kill mata un proceso (k , pid, signal)
+
+r -> renice -> pid, nice_value
+
+shift + w -> guarda la actual pantalla de top 
+
+q -> quit 
+
+f -> maneja las columnas habilitando y dehabilitando campos. 
+
+
+

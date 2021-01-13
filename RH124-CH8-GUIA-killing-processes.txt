@@ -1,0 +1,55 @@
+RH124-CH8-GUIA-killing-processes
+
+## en dos pestañas de la terminal abrir dos conexiones con el servidor 
+$ ssh student@servera
+
+## crear el directorio /home/student/bin, dentro del cual habra un script ejecutable "killing"
+$ mkdir ~/bin
+$ vim ~/bin/killing
+
+#!/bin/bash
+while true; do
+    echo -n "$@" >> ~/killing_outfile
+    sleep 5
+done
+
+$ chmod a+x ~/bin/killing
+
+## en la siguiente pestaña ejecutar el script killing con los argumentos "network, interface y connection" cada uno en background
+
+$ ./killing network &
+$ ./killing interface &
+$ ./killing connection &
+
+# en otra pestaña corroboramos la ejecuccion 
+
+$ jobs
+
+## uso de la señales para parar y terminar los procesos 
+
+# parar network
+
+$ kill -SIGSTOP %1
+
+# terminar Interface 
+
+$ kill -SIGTERM %2
+
+# resume network
+
+$ kill -SIGCONT %1
+
+## terminar con network y connection
+$ kill -SIGTERM %1
+$ kill -SIGTERM %3
+
+## con ps buscamos todos los procesos tail que pudieran estar corriendo todavia 
+
+$ ps -ef | grep tail 
+
+## matamos el proceso con pkill 
+
+$ pkill -SIGTERM tail
+
+
+

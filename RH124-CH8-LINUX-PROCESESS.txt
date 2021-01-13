@@ -1,0 +1,126 @@
+RH124-CH8-LINUX-PROCESESS
+
+Estados de los procesos
+
+running: R -> TASK RUNNING 
+
+sleeping S -> TASK_INTERRUPTIBLE
+         D -> TASK_UNINTERRUPTIBLE  
+         K -> TASK_KILLABLE
+         I -> TASK_REPORT_IDLE
+
+STOPED   T -> TASK_STOPED
+           -> TASK_TARCED
+
+ZOMBIE  Z -> EXIT_ZOMBIE
+        X -> EXIT_DEAD
+
+
+$ ps -aux
+# lista todos los procesos, inclusive los que no tienen un control desde una terminal
+
+$ ps lax 
+# long listing de los procesos, detales tecnicos
+
+$ pc -ef
+# todos los procesos
+
+## JOBS
+
+& -> indicativo de proceso en background
+
+$ sleep 1000 & 
+# duerme el proceso 
+
+$ jobs imprime los procesos corriendo en background
+
+$ fg %1
+# trae el job identificado con el numero 1 al foreground
+
+cntrl + z
+# envia los procesos al background y los suspende
+
+$ ps j
+# imprime informacion relacionada con los procesos
+
+$ bg %1
+# el job numero 1 esta suspendido corriendo en background, bg lo inicia 
+
+$ ps -jT
+# muestra jobs remanantes 
+
+### KILLING PROCESSES
+
+# SEÑALES 
+
+1 -> HUP -> HANGUP
+# reporta el fin del proceso que controla la terminal
+
+2 -> INT -> keyboard interrupt 
+# termina el programa = cntrl + cntrl
+
+3 -> QUIT -> keyboard QUIT
+# control + \, volcar (dump) una terminacion 
+
+9 -> KILL -> kill unbloqueable
+# terminacion abrupta de un programa, solicita terminar al programa
+
+15 -> terminate -> program termination, solicita terminal al programa.
+
+18 -> CONT -> continue -> resume procesos
+
+19 -> STOP -> stop unbloqueable -> suspende el proceso
+
+20 -> TSTP -> keyboard stop -> control + z 
+
+cntrl + z 
+# suspende
+cntrl + c 
+# KILL
+cntrl + \
+# dump
+
+$ kill -l 
+# lista nombre y numero de las señales
+
+1   SIGHUP          11      SIGSEGV
+2   SIGINT          12      SIGUSR2
+3   SIGQUIT         13      SIGPIPE
+4   SIGKILL         14      SIGALRM
+5   SIGTRAP         15      SIGTERM
+6   SIGABRT         16      SIGSTKFLT
+7   SIGBUS          17      SIGCHILD
+8   SIGFPE          18      SIGCONT
+9   SIGKILL         19      SIGSTOP
+10  SIGUSR          20      SIGTSTP    
+
+$ kill -SIGTERM 5205
+# terminal el proceso n° 5205
+
+$ pgrep -l -u bob
+# muestra procesos del usuario bob
+
+$ pikill -SIGKILL -u bob
+# termina (mata) los procesos de bob
+
+$ w -h -u bob
+# muestra informacion del tiempo de conexion del usuario y cual tty esta utilizando
+
+$ pkill -t TTY3
+# mata TTY3, terminal que esta siendo usada por el usuario bob
+
+$ pstree -p  bob
+# muestra el arbol de procesos del usuario bob
+
+##monitoring processes activity 
+
+# uptime, cuanto tiempo lleva UP la maquina 
+$ lscpu 
+# cuantas CPU tiene el sistema
+
+$ top 
+# administrador de tareas en vivo 
+
+$ ps 
+# muestra informacion de los procesos pero no en tiempo real
+
