@@ -1,0 +1,39 @@
+RH124-CH9-controling-services-y-daemons
+
+## systemctl
+
+$ systemctl -t help
+# muestra los tipos de unidades disponibles
+
+$ systemctl list-units --type=services
+# muestra las unidades, servicios
+## --all -> muestra todas las unidades de servicios, sin importar si estan activos o no 
+## --state -> load, active,sub --> se filtra por el estado 
+
+$ systemctl list-units-files --type=service
+# muestra todas las unidades del tipo file instaladas
+
+$ systemctl is-activa sshd.service
+# consulta si el servicio esta activo 
+
+$ systemctl is-enables sshd.service
+# muestra si el servicioe esta habilitado o no 
+
+$ systemctl is-failed sshd.service
+# muestra si el servicio esta activo (correcto) o con fallas (failed)
+
+$ systemctl list-units --type=service
+# muestra todas las unidades de servicio instaladas
+
+$ systemctl list-units -type=socket --all 
+# muestra todas las unidades del tipo socket activas e insactivas 
+
+$ systemctl status chronyd.service
+# muestra el estado actual del servicio chronyd
+
+$ systemctl is-enabled sshd 
+#  comprueba si el servicio ssh arranca con el sistema
+
+$ systemctl is-active sshd.service
+# determina si ssh esta activo pero sin intervencion del ejercito .
+

@@ -1,0 +1,43 @@
+RH124-CH9-LAB-controlling-services-and-daemons
+
+1.- conexion con el servidor
+$ ssh student@serverb
+
+2.- revisamos el estado del servicio psacct
+$ systemctl status psacct
+
+3.- iniciamos 
+
+$ systemctl start psacct
+
+## verificamos que el servivicio este corriendo de forma correcta
+
+$ systemctl is-active psacct
+
+4.- configuramos el servivio para que arranque con el sistema 
+
+$ systemctl enable psacct
+
+verificamos que los cambios hayan sido efectivos
+
+$ systemctl is-enabled psacct
+
+5.-  paramos el servivicio rsyslog
+
+## revisamos el estado actual del servicio
+
+$ systemctl status rsyslog
+
+$ systemctl stop rsyslog
+
+## verificamos
+$ systemctl is-active rsyslog
+
+## configuramos el servivio para que no inice con el arranque del sistema
+
+$ systemctl disable rsyslog
+
+## verificamos que este correcta mente deshabilitado 
+
+$ systemctl is-enabled rsyslog
+

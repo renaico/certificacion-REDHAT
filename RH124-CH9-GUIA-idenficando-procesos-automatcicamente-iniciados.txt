@@ -1,0 +1,25 @@
+RH124-CH9-GUIA-idenficando-procesos-iniciados
+
+1.- conexion con el server 
+$ ssh student@servera
+
+2.- List todos los servicios instalados en el sevidor 
+$ systemctl list-units --type=service
+
+3.- listar todos los sockets units en el server 
+$ systemctl list-units --type=socket --all
+
+4.- explorar el estado del servicio chronyd 
+$ systemctl status chronyd
+
+## revisar si el servicio esta activo y levantamdo con el sistema
+
+$ systemctl is-active sshd
+$ systemctl is-enabled sshd
+
+$ systemctl status sshd
+# desoliega el estado del servicio sshd
+
+$ systemctl list-units-files --type=service
+## listar el estado habilitado o deshabilitado de todos los servicios
+

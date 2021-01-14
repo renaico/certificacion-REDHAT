@@ -1,0 +1,34 @@
+RH124-CH9-GUIA-controlling-system-services
+
+1.- conexion con el servidor
+$ ssh stident@servera
+
+2.- reiniciar y recargar el servicio ssh
+
+$ systemctl status sshd
+# muestra el estado actual del servicio
+
+$ systemctl restart sshd.service
+# reinicia el servicio, el PID cambia
+
+$ systemctl reload sshd.service
+$ systemctl status sshd
+# recarga el servicio, el PID no cambia
+
+3.-  verificamos que el servicio chronyd este corriendo. 
+$ systemctl status chronyd.service
+
+4.- paramos el servicio y vemos el status
+$ systemctl stop chronyd.service
+$ systemctl status chronyd.service
+
+5.- determinar si el servicio chronyd esta iniciando con el boot de la maquina. 
+$ systemctl is-enabled chronyd
+
+6.-  reiniciamos y revisamos el status del servicio chronyd
+
+7.- deshabilitamos el servicio chronyd cosa que al siguiente reinicio no parta, reiniciamos y revisamos el status
+
+$ systemctl disabled chronyd
+$ systemctl reboot
+$ systemctl status chronyd
