@@ -1,0 +1,103 @@
+RH124-CH8-LAB-monitoring-and-managing-linux-PROCESESS
+
+1.- Abrimos dos terminales, creamos el script ejecutable "process101" dentro del directorio /home/student/bin
+$ ssh student@serverb
+$ mkdir /home/student/bin
+$ vim ~/bin/proceess101
+#!/bin/bash
+while true; do
+    var=1
+    while [[ var -lt 50000 ]]; do
+        var=$(($var+1))
+    done
+    sleep 1
+done 
+## el anterior scriopt genera Carga adicional (artificial) en la CPU
+
+$chmod a+x ~/bin/proceess101
+
+2.-  en la terminal derecha corremos top
+
+3.- en la izquierda determina el numero de cpu logicas en la maquina que ejecuta el script "proceess101"
+
+$ grep "model name" /proc/cpuinfo | wc -l
+
+## nos movemos dentro del directorio ~/bin y ejecutamos proceess101 en backgrooung 
+
+$ cd ~/bin
+$ ./proceess101
+
+4.- En la terminal derecha observamos los procesos relacionados al script... 
+ 
+ ## ordenamos por memoria presionando m 
+ ## ordenamos por threads presionando t 
+
+ shift + p 
+ ## retorna a la vista de uso de cpu. 
+
+ 5.-  apagamos el uso de Negrita (cntrl + b ). Guardar esta cinfiguracion para futuros usos del mismo 
+
+shift + b -> activa y desaactiva la Negrita
+
+shift + w -> para guardar las configuraciones. esto se guarda en ~/.config/toprc
+
+6.- realizamos una copia del archivo proceess101 a proceess102, editaremos el contador para que tengan menos paz todavia. 
+
+$ cp ~/bin/proceess101 ~/bin/proceess102
+$ vim ~/bin/proceess101
+#!/bin/bash
+while true; do
+    var=1
+    while [[ var -lt 100000 ]]; do
+        var=$(($var+1))
+    done
+    sleep 1
+done 
+
+## arrancamos el script en background
+
+$ ./processes102 &
+
+## con jobs revisamos los trabajos corriendo
+
+$ jobs
+
+7.-  En la ventana de top podemos ir notando el aumento de la CPU
+
+8.-  volvemos a copia4 el script en otro archivo process103, idea es darle mas carga aun a la cpu. 
+
+$ cp ~/bin/proceess101 ~/bin/proceess103
+$ vim ~/bin/proceess101
+#!/bin/bash
+while true; do
+    var=1
+    while [[ var -lt 80000 ]]; do
+        var=$(($var+1))
+    done
+    sleep 1
+done 
+
+$ ./processes103 &
+
+$ jobs
+## aqui podemos corroborrar la existencia de los procesos. 
+
+9.- En otra terminal, become root y suspendemos el proceso process101, listamos los jobs activos. 
+revisamos los estados de los procesos. 
+
+$ su - 
+$ pkill -SIGSTOP process101
+
+## listamos los procesos remanenetes  
+$ ps -jT
+
+10.- resume del proceso 'process101'
+$ pkill -SIGCONT process101 
+
+## en la pantalla de top debe comenzar a aparecer
+
+11 terminar los procesos proceess101,proceess102,proceess103. VErificar lo anterior en top
+
+$ pkill -proceess103
+$ pkill -proceess102
+$ pkill -proceess101

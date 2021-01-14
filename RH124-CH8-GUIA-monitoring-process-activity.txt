@@ -1,0 +1,43 @@
+RH124-CH8-GUIA-monitoring-process-activity
+
+1.- abrimos dos ventanas de la terminal 
+$ ssg student@servera
+
+2.- creamos el directorio /home/student/bin, dentro del cual creamos un script de nombre "monitor". Este script deber ser ejecutable
+$ mkdir ~/bin
+$ vim ~/bin/monitor
+
+#!/bin/bash
+while true; do
+    var=1
+    while [[ var -lt 50000 ]]; do
+        var=$(($var+1))
+    done
+    sleep 1
+done 
+
+$ chmod a+x ~/bin/monitor
+
+3.- ejecutamos top en la otra ventanas
+$ top
+
+4.- en la ventana del lado ejecutamos lscpu para deternunal el numero de cpu de maquina. 
+
+$ lscpu
+
+5.- en la primera ventana ejecutar monitor en background
+
+$ ./monitor &
+
+6.- en la ventabna de top usar las teclas:
+l -> load
+t -> threads
+m -> memory 
+
+7.- en la ventana de top identificarl el PID del proceso "monitor"
+
+8.- corremos otra isntancia de monitor en background
+
+9.- revisar numeros de proceso, y el % de uso de la CPU para los proceso corriendo
+
+10.- correr una nueva instancia de monitor en background
