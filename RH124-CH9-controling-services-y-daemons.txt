@@ -37,3 +37,21 @@ $ systemctl is-enabled sshd
 $ systemctl is-active sshd.service
 # determina si ssh esta activo pero sin intervencion del ejercito .
 
+### controlling system services
+
+$ systemctl reload sshd
+# recarga ssh
+
+$ systemctl reload-now sshd 
+# recarga rapida
+
+$ systemctl reload-or-restart sshd
+# recarga si es posible, dependiendo el servicio, en su defecto reinicia completamente
+
+$ systemctl list-dependencies sshd.service
+# muestra los servicios dependientes del sshd service 
+
+#### enmascarado de servicios 
+
+$ systemctl mask "service"
+$ systemctl unmask "service"

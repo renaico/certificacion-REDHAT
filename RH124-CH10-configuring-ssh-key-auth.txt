@@ -1,0 +1,35 @@
+RH124-CH10-configuring-ssh-key-auth
+
+generando la key
+
+$ ssh-keygen
+## la clave se almacena por defecto en ~/.ssh
+## por defecto la clave publica tiene por nombre 'id_rsa.pub'
+## la clave privada lleva por nombre 'id_rsa'
+## si no especifgicacmos passphrase cualquiera quye obtenga las claves podria usuarlas
+
+$ ssh-keygen -f ~/.ssh/key-with-pass
+passphrase: 1234
+
+### se genera el pas de claves protegidas por la passphrase '1234'
+### clave privada: '~/.ssh/key-with-pass'
+### clave publica: '~/.ssh/key-with-pass.pub'
+## si no se especifica un nombre en los pasos anteriroes y se usan los nombres por defecto sobreescribiremos las claves previas 
+
+## compartiendo la clave publica
+
+$ ssh-copy-id -i ~/.ssh/key-with-pass.pub user@server
+## enviamos la clave al host remoto
+
+$ ssh -i ~/.ssh/key-with-pass.pub user@server
+## usamos la clave recien creada para autenticarnos en el servidor 
+
+### usamos el ssh-agent para autenticarnos sin interraccion
+
+$ eval $(ssh-agent)
+$ ssh-add
+$ ssh-add ~/.ssh/key-with-pass
+passphrase: -- 
+
+$ ssh user@server
+server ~]$ 

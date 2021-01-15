@@ -1,0 +1,29 @@
+RH124-CH10-GUIA-remote-cli 
+
+1.- conexion a servera
+
+$ ssh student@servera
+
+2.- desde servera establecer una  conexion ssh hasta serverb, acceptar las nuevas host keys
+
+servera ~]$ ssh student@serverb
+yes
+password: ----- 
+
+3.- identificar los usuarios conectados
+$ w 
+
+4.- cerramos las conexiones de student en serverb y nos conectamos como root
+
+servera ~]$ ssh root@serverb
+yes
+password: ----- 
+
+## identificar los usuarios conectados
+$ w 
+
+
+### eliminar de serverb el registro de los host conocidos
+$ rm /home/student/.ssh/ssh_known_hosts
+
+## esto causara que el serverb ya no reconocera ningun login previo y los almacenara como nuevos 
