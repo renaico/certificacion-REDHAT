@@ -1,0 +1,39 @@
+RH124-CH10-LAB-configuring-and-securing-ssh
+
+1.- conectarse como student en servera
+$ ssh student@servera
+
+2.- nos cambiamos a operator1
+$ su - production1
+
+3.- generamos keys sin proteccion de passphrase para el usuario production1 en servera
+$ ssh-keygen
+passphrase: empty
+
+4.- enviamos el par de claves recien creadas a serverb
+$ ssh-copy-id production1@serverb
+
+5.- confirmar que el usuario production1 pueda efectivamente loguearse en serverb usando las claves recien creada en el paso anterior
+$ ssh production1@serverb
+
+6.- configurar en servera sshd de tal forma que no sea posible hacer login con el usuario root
+$ vim /etc/ssh/sshd_config
+PermirRootLogin no 
+
+##recargamos el servicio sshd
+$ systemctl reload sshd.service
+
+##Tratamos de hacer login como root 
+$ ssh root@serverb
+Permission denied, 
+
+7.- Configurar sshd en serverb para que los usuarios solo puedan loguearse usando claves ssh y meduiante contraseña
+$ vim /etc/ssh/sshd_config
+PasswordAuthentication no 
+
+##recargamos el servicio sshd
+$ systemctl reload sshd.service
+
+
+## probamos la conexion desde otro terminal 
+

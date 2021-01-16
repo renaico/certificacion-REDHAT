@@ -1,0 +1,45 @@
+RH124-CH10-GUIA-customizing-openssh-service-config
+
+1.- conectar como student a serverb
+$ ssh student@serverb
+
+2.- cambiar a operator2 con su 
+$ su - operartor2
+password: redhat
+
+3.- generar ssh keys sin protecciond de passphrase
+$ ssh-keygen
+passphrase: enter
+ 
+4.- enviamos el par de claves recien creadas al servera, operator2 tiene la clave 'redhat'
+$ ssh-copy-id operartor2@servera
+password: redhat
+
+5.- confirmar que efectivamentes se pueda hacer login en servera como operartor2 usando el parde claves creadas en el paso 3
+$ ssh operartor2@servera
+
+6.- confirmar que sea posible loguearse como root y como operartor3 usando la respectiva password de cada uno. 
+
+7.- configurar sshd en servera para que no sea posible loguearse como root via ssh 
+
+$ ssh operartor2@servera
+$ su - 
+## editamos el archivo /etc/ssh/sshd_config
+PermirRootLogin no 
+## recargamos el servicio 
+$ systemctl reload --now sshd
+
+## en otra terminal intentar loguear como root a servera
+
+$ ssh root@servera
+permission denied, 
+
+9.- Configurar el sshd para que los usuarios no puedan autenticarse con password y solo lo puedan hacer con keys
+
+$ sudo -i 
+$ vim /etc/ssh/sshd_config
+
+PasswordAuthentication no 
+
+$ systemctl reload --now sshd
+# recargamos el servicio 

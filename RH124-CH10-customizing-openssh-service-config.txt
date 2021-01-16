@@ -1,0 +1,17 @@
+RH124-CH10-customizing-openssh-service-config
+
+## prohibir el login como root
+## editamos el archivo de configuracion /etc/ssh/sshd_config
+## modificamos la linea: 
+
+PermirRootLogin yes/no
+
+$ systemctl reload --now sshd
+## recargamos el servicio ssh
+
+### prohibir la auth basada en contraseña
+##editamos el archivo de configuracion /etc/ssh/sshd_config
+##modificamos la linea.
+
+PasswordAuthentication yes/no
+
