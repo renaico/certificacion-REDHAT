@@ -1,0 +1,48 @@
+ RH124-CH11-LOGS
+
+ /var/log
+ messages -> authentication, email, jobs, debug.
+ secure -> security, authentication
+ maillog > mail server
+ cron -> cron jobs
+ boot.log -> startup
+
+## syslog priority 
+
+0   ->  EMERG   ->  sistema inutilizable
+1   ->  ALERT   ->  acciones deben ser tomadas
+2   ->  CRIT    ->  condicion critica
+3   ->  ERR     ->  error no critico
+4   ->  WARNING ->  condicion de alerta
+5   ->  NOTICE  ->  normal pero significativo
+6   ->  INFO    ->  informacion
+7   ->  DEBUG   ->  mensaje nivel DEBUG
+
+$ logger
+## genera logs manualmente, suado en abientes de pruebas 
+
+$ logger -p local7notice "log entry created on host"
+
+Ejemplos de configuracion de logs
+
+
+kern.*  /dev/console
+## muestra los mensajes del kernel en pantalla 
+
+*.info; mail.none; authpriv.none; cron.none /var/log/mesagges
+# logguea todo desde info hacia arriba, excepto mail 
+
+authpriv.* /var/log/secure
+# authpriv -> archivo con acceso restringido
+
+mail.*  /var/log/maillog
+# todos los mensajes de email 
+
+cron.*  /var/log/cron
+todo lo relacionado con cron
+
+*.emerg     :omsusrmsgs:*
+# todos los mensajes de error
+
+
+

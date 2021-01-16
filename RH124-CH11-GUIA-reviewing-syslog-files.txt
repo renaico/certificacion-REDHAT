@@ -1,0 +1,24 @@
+RH124-CH11-GUIA-reviewing-syslog-files
+
+1.-  conexion con servera como student
+$ shh student@servera
+
+2.- configurar rsyslog en servera para almacenar todos los mensajes de debug o superior en el archivo 
+/var/log/mesagges-debug, esta regla debe ser agregada en el archivo /etc/rsyslog.d/debug.conf
+
+##become sudo 
+$ sudo -i 
+
+##creamos el archivo de configuracion 
+$ echo "*.debug     /var/log/messages--debug" >> /etc/rsyslog.d/debug.conf
+
+## reiniciamos el servicio 
+$ systemctl restart rsyslog
+
+3.- generamos logs manualmente para verificar los cambios aplicados
+
+$ logger -p user.debug "debug message test"
+
+## leemos el archivo destino 
+
+$ tail /var/log/messages-debug
