@@ -1,0 +1,50 @@
+RH124-CH10-GUIA-configuring-ssh-key-based-authentication
+1.- establecer conexion con el servidor
+$ ssh student@serverb
+
+2.- cambiamos al usuario operator1 en el serverb
+$ su - operator1
+password: redhat
+
+3.- generar ssh keys con el comando ssh-keygen, no usar passphrase
+$ ssh-keygen
+## se alamacena por defecto en ~/.ssh/id_rsa
+
+4.- Enviamos el par de claves generadas por operator1 al servera, la clave a usar es redhat
+$ ssh-copy-id operator1@servera
+password: redhat
+
+5.- ejecutamos el comando hostname via ssh, la autenticacion sera con la clave recien compartida
+$ ssh operator1@servera hostane
+servera.lab.example.com
+## cualquiera que obtenga por algun motivo el par de claves sin proteccion de passphrase podria conectarse sin necesidad
+de ingresar ninguna clave. 
+
+6.- generar otro par de claves protegidas por la passphrase 'redhatpass', guardamos la clave con el nombre ~/.ssh/key2
+$ ssh-keygen -f ~/.ssh/key2
+passphrase: redhatpass
+
+7.- enviamos la clave al servera
+
+$ ssh-copy-id -i ~/.ssh/key2.pub operator1@servera
+
+8.- ejecutamos el comando hostaname remotamente en el servera, nos autenticamos usando el par de claves recien creadas en el paso 6
+
+$ ssh -i ~/.ssh/key2 operator1@servera hostaname
+passphrase: redhatpass
+
+## en el anterior paso el sistema requiere el ingreso de la passphrase para que la conexion sea efectiva
+
+9.- corremos el ssh-agent para agregar la clave protegida con passphrase De esta manera evitamos el estar ingresando la clave cada ves que nos logeamos. 
+
+$ eval $(ssh-agent)
+$ ssh add ~/.ssh/key2
+passphrase: redhatpass
+
+$ ssh -i ~/.ssh/key2 operator1@servera hostname
+servera.lab.example.com
+## el ingreso de la passphrase es omitida
+## cualqueir login desde otra shell distinta de la que corrimos el ssh-agent solicitara el ingreso de la passphrase
+
+
+

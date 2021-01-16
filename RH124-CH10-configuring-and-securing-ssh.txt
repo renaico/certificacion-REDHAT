@@ -1,0 +1,35 @@
+RH124-CH10-configuring-and-securing-ssh
+
+$ ssh user@server
+password: --- 
+## conexion basica al servidor 
+
+[renaico@RMB-MRJO-M1 ~]$ ssh renaico@192.168.18.103 hostnamectl
+renaico@192.168.18.103's password: 
+   Static hostname: RMB-MJRO-M2
+         Icon name: computer-desktop
+           Chassis: desktop
+        Machine ID: 8f2f1faefa934def87c568c7eceddb31
+           Boot ID: ff5cf1692370453b9d2fc641a6c6b092
+  Operating System: Manjaro Linux
+            Kernel: Linux 5.10.2-2-MANJARO
+      Architecture: x86-64
+[renaico@RMB-MRJO-M1 ~]$ 
+### ejecucion de un comando remoto 
+
+$ w 
+## identificando usuarios conectados 
+
+[renaico@RMB-MRJO-M1 ~]$ ssh renaico@192.168.18.103 w
+renaico@192.168.18.103's password: 
+ 01:21:16 up 13:25,  4 users,  load average: 0.01, 0.11, 0.14
+USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
+renaico  tty1      Fri12   13:25m 10:39   0.07s /usr/bin/startplasma-x11
+renaico  pts/1     Fri12   13:18m  0.00s  4.80s /usr/bin/kded5
+renaico  pts/2     Fri12   13:18m  0.00s  0.00s /bin/bash
+
+/etc/ssh/ssh_known_hosts
+## system administrator almacena su clave publica aqui.
+
+~/.ssh/known_hosts 
+## aqui se almacena la key de los suuarios 'comunes'
