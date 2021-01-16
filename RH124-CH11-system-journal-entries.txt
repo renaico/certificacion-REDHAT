@@ -1,0 +1,42 @@
+RH124-CH11-system-journal-entries
+
+
+$ journalctl 
+# muestra todo el puto registro del journal
+
+$ journalctl -5 
+# muetsra las ultimas 5 entradas
+
+$ journalctl -f 
+# muestra las ultimas 10 lineas 
+
+$journalctl -p err
+# muestra las entradas con prioridad err o superrior 
+
+Listado de prioridades:
+debug, info, notice, warning, err, crit, alert, emerg
+
+Rangos de fechas 
+--until 
+--since
+
+$ journalctl --since today 
+# muestra muestra todas las entradas del journal a partir de hoy 
+
+## Rango especifico 
+
+$ journalctl --since "2019-02-10 20:30:00" --until 2019-02-13 12:00:00
+
+$ journalctl --since "1 hour"
+## muestra todas las entradas de la ultima hora 
+
+### busqueda por linea especifica
+
+-comm   ->  comando
+-exec   ->  ruta
+-PID    ->  proceso 
+-UID    ->  usuario 
+-systemd_unit   ->   servicio
+
+$ journalctl -systemd_unit=sshd.service
+
