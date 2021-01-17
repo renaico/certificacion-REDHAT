@@ -1,0 +1,50 @@
+RH124-CH11-maintaining-acurate-time
+
+$ timedatectl
+[renaico@RMB-MJRO-M2 ~]$ timedatectl 
+               Local time: dom 2021-01-17 07:27:14 -03  
+           Universal time: dom 2021-01-17 10:27:14 UTC  
+                 RTC time: dom 2021-01-17 10:27:13      
+                Time zone: America/Santiago (-03, -0300)
+System clock synchronized: no                           
+              NTP service: inactive                     
+          RTC in local TZ: no                           
+[renaico@RMB-MJRO-M2 ~]$ 
+
+
+[renaico@RMB-MJRO-M2 ~]$ timedatectl list-timezones
+Africa/Abidjan
+Africa/Accra
+Africa/Algiers
+Africa/Bissau
+Africa/Cairo
+Africa/Casablanca
+...
+
+
+$ timedatectl set-timezone America/Santiago
+## setea la zona horaria como america America/Santiago
+
+$ timedatectl set-time 9:00:00
+## fija las 9 en punto como la hora del sistema 
+
+$ timedatectl set-ntp true
+Habilita o desabilita el cliente ntp
+
+### /etc/chrony.conf -> archivo de configuracion de chrony (NTP)
+$ systemctl restart chrony
+
+[renaico@RMB-MJRO-M2 ~]$ chronyc sources -v
+210 Number of sources = 1
+
+  .-- Source mode  '^' = server, '=' = peer, '#' = local clock.
+ / .- Source state '*' = current synced, '+' = combined , '-' = not combined,
+| /   '?' = unreachable, 'x' = time may be in error, '~' = time too variable.
+||                                                 .- xxxx [ yyyy ] +/- zzzz
+||      Reachability register (octal) -.           |  xxxx = adjusted offset,
+||      Log2(Polling interval) --.      |          |  yyyy = measured offset,
+||                                \     |          |  zzzz = estimated error.
+||                                 |    |           \
+MS Name/IP address         Stratum Poll Reach LastRx Last sample               
+===============================================================================
+^* 200.54.149.19                 1   6    17     7    -22us[  +44us] +/- 3819us
