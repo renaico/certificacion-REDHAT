@@ -1,0 +1,33 @@
+RH124-CH11-preserving-the-system-journal
+
+/etc/systemd/journald.conf
+
+persistent -> /var/log/journal -> si no existe lo crea
+volatile -> /run/log/journal -> se limpia en cada reinicio
+auto -> si existe /var/log/journal rsyslog alamacena los logs ahi, de lo contrario como volatile (/run/log/journal)
+
+RH124-CH11-GUIA-preserving-the-system-journal
+
+1.- Conexion con el servidor
+
+$ ssh student@servera
+
+2.- como super usuario confirmar que el /var/log/journal no existe
+
+$ sudo ls /var/log/journal
+
+3.- Confirgurar systemd - journal para preservar journal despeus del reinicio
+
+$ sudo vim /etc/systemd/journald.conf
+## descomentamos la linea que dice Storage y la seteamos como persistent
+Storage=persistent
+
+## reiniciamos el servicio
+$ sudo systemctl restart systemd-journals.service
+
+4.- Confirmar los cambios reiniciando la maquina, para luego leer los logs almacenados en la ubicacion persistente /var/log/journal
+
+$ sudo systemctl reboot
+$ ssh student@servera
+$ sudo ls /var/logs
+journal/XXXX

@@ -1,0 +1,24 @@
+RH124-CH11-GUIA-reviewing-system-journal
+
+1.- conexion con el servidor 
+$ ssh student@servera
+
+2.- Usar _PID=1 para filtrar as entradas relacionadas con el pID 1
+
+$ journalctl _PID=1
+
+3.- _UID=81
+
+$ journalctl _UID=81
+
+4.- buscar los warning usar la opcion -p
+
+$ journalctl -p warning
+
+5.- Muestra los los logs guardados en los pasados 10 minutos 
+
+$ journalctl --since "-10min"
+
+6.- buscar los logs relacionados con ssh y que se almacenaron desde las 00:00:00
+
+$ journalctl --since 00:00:00 _SYSTEMD_UNIT="sshd.service"

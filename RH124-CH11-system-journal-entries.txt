@@ -39,4 +39,6 @@ $ journalctl --since "1 hour"
 -systemd_unit   ->   servicio
 
 $ journalctl -systemd_unit=sshd.service
+# entradas realxciondas con sshd
+
 
