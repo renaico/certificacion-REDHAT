@@ -1,0 +1,48 @@
+RH124-CH11-LAB-analyzing-and-storing-logs
+
+1.- conexion con el server
+$ ssh student@servera
+
+2- cambair la zona horaria jamaica
+
+## listamos las zonas 
+$timedatectl list-timezones | grep jamaica
+America/Jamaica
+
+## cambiamos la zona horaria
+$ sudo timedatectl set-timezone  America/Jamaica
+
+## comprobamos
+$timedatectl
+
+3.- Mostrar los los desde hace 30 mins
+## Verificamos hora y fecha actual
+
+[renaico@RMB-MJRO-M2 ~]$ date
+mar 19 ene 2021 02:04:33 -03
+[renaico@RMB-MJRO-M2 ~]$ date -d "-30 minutes"
+mar 19 ene 2021 01:34:48 -03
+[renaico@RMB-MJRO-M2 ~]$ 
+
+## ahora costramos el journal y lo filtramos con sincronice
+
+$journalctl --since 01:34:48 --until 02:04:33 
+
+4.- crear el archivo /etc/rsyslog.d/auth-errors.conf, dentro del cual estara establecido que los logs authpriv y aleert
+se almacenaran en el archivo /var/log/auth-errors
+
+## creamos el archivo junto con su configuracion
+
+$ echo "authpriv.alert     /var/log/auth-errors" >> /etc/rsyslog.d/auth-errors.conf
+
+## reiniciamos el servicio
+
+$ systemctl restart rsyslog.service
+
+## creamos log manualmente
+
+$ logger -p authpriv.alert "Logging test  authpriv.alert"
+
+## revisamos que lo logs esten almacennandose de forma correcta en el archivo.. 
+
+$ sudo tail -f /var/log/auth-errors

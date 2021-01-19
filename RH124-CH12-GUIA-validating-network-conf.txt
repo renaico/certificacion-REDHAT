@@ -1,0 +1,76 @@
+RH124-CH12-GUIA-validating-network-conf.txt
+
+1.- Conexion con el server
+$ ssh student@servera
+
+2.- Detalles de la Interface de red 
+
+renaico@RMB-MJRO-M2 ~]$ ip link 
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: enp5s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether c0:3f:d5:ae:09:88 brd ff:ff:ff:ff:ff:ff
+
+3.- Ip 
+[renaico@RMB-MJRO-M2 ~]$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp5s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether c0:3f:d5:ae:09:88 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.18.103/24 brd 192.168.18.255 scope global noprefixroute enp5s0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::e8cc:dce1:7570:9183/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+
+4.- Estadisticas de la Interfea
+[renaico@RMB-MJRO-M2 ~]$ ip -s link enpX
+Command "enpX" is unknown, try "ip link help".
+[renaico@RMB-MJRO-M2 ~]$ ip -s link show enX
+Device "enX" does not exist.
+[renaico@RMB-MJRO-M2 ~]$ ip -s link show enp5s0
+2: enp5s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether c0:3f:d5:ae:09:88 brd ff:ff:ff:ff:ff:ff
+    RX: bytes  packets  errors  dropped overrun mcast   
+    695748690  606437   0       0       0       14264   
+    TX: bytes  packets  errors  dropped carrier collsns 
+    30500439   349930   0       0       0       0      
+
+5.- Tabla de Enrutamiento
+[renaico@RMB-MJRO-M2 ~]$ ip route
+default via 192.168.18.1 dev enp5s0 proto static metric 100 
+192.168.18.0/24 dev enp5s0 proto kernel scope link src 192.168.18.103 metric 100 
+
+6.- ping 
+[renaico@RMB-MJRO-M2 ~]$ ping -c3 ntp.shoa.cl
+PING hora.shoa.cl (200.54.149.24) 56(84) bytes of data.
+64 bytes from 200.54.149.24 (200.54.149.24): icmp_seq=1 ttl=238 time=6.58 ms
+64 bytes from 200.54.149.24 (200.54.149.24): icmp_seq=2 ttl=238 time=6.67 ms
+64 bytes from 200.54.149.24: icmp_seq=3 ttl=238 time=6.38 ms
+
+--- hora.shoa.cl ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 10117ms
+rtt min/avg/max/mdev = 6.383/6.543/6.671/0.119 ms
+[renaico@RMB-MJRO-M2 ~]$ 
+
+
+7.- Traceroute
+[renaico@RMB-MJRO-M2 ~]$ tracepath ntp.shoa.cl
+ 1?: [LOCALHOST]                      pmtu 1500
+ 1:  _gateway                                              0.918ms 
+ 1:  _gateway                                              0.832ms 
+ 2:  100.64.0.1                                           54.809ms 
+ 3:  10.79.33.145                                          6.143ms 
+ 4:  10.79.33.141                                         34.181ms 
+ 5:  10.79.33.137                                          2.915ms 
+ 6:  10.79.33.121                                          3.225ms 
+ 7:  10.255.0.46                                           3.706ms asymm  9 
+ 8:  10.255.0.33                                           3.232ms 
+ 9:  10.255.0.17                                           4.093ms asymm  8 
+10:  8.242.205.69                                          3.924ms asymm  9 
+11:  ^C
+[renaico@RMB-MJRO-M2 ~]$ 
+

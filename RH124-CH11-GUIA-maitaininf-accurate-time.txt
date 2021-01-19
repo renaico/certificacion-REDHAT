@@ -1,0 +1,32 @@
+RH124-CH11-GUIA-maitaininf-accurate-time
+
+1.- conexion al servidor
+
+$ ssh student@servera
+
+2.- cambiar la zona horaria a Habilita
+## tzselect para selecionar la zona horaria indicada
+
+$ tzselect
+-> 28 
+-> yes 
+(America/Port-au-Prince)
+
+## cambniamos la zona horaria 
+$ timedatectl set-timezone America/Port-au-Prince
+
+3.- configuramos chronyd para que se sincronice con un ntp server 
+## editamos el /etc/chrony.conf
+$ vim /etc/chrony.conf 
+-> server   nyp.shoa.cl iburst
+
+## habilitamos la sincronizacion 
+
+$ sudo timedatectl set-ntp yes 
+
+5.- Verificamos 
+$ timedatectl 
+
+## usamos chronyc para verrificar que la maquina se este sincronizando con el ntp 
+
+$ chronyc sources -v 

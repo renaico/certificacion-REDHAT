@@ -1,0 +1,80 @@
+RH124-CH12-GUIA-configuring-networking-from-cli
+1.- conexion con el servidor 
+$ ssh student@servera
+
+2.- ubicar los nombres de las interfaces de red
+$ ip link 
+
+3.- Revisar configuracion de red usando NMCLI
+$ nmcli con show
+
+## mostramos solo las conexiones activas 
+$ nmcli con sh --active
+
+## mostramos todas las configuraciones de la conexiona activa
+
+[renaico@RMB-MJRO-M2 ~]$ nmcli con show LAN
+connection.id:                          LAN
+connection.uuid:                        7334c683-d447-4224-b006-73d733b5d40f
+connection.stable-id:                   --
+connection.type:                        802-3-ethernet
+connection.interface-name:              --
+connection.autoconnect:                 sí
+connection.autoconnect-priority:        0
+connection.autoconnect-retries:         -1 (default)
+connection.multi-connect:               0 (default)
+connection.auth-retries:                -1
+connection.timestamp:                   1611034818
+connection.read-only:                   no
+connection.permissions:                 --
+connection.zone:                        --
+connection.master:                      --
+connection.slave-type:                  --
+connection.autoconnect-slaves:          -1 (default)
+connection.secondaries:                 --
+connection.gateway-ping-timeout:        0
+connection.metered:                     desconocido
+..
+...
+.....
+
+"## mostramos el estado del dispositivo (NIC)
+$ nmcli dev status
+
+mostramos las configuraciones del dispositvo (NIC)
+
+$ nmcli dev show enp5s0
+
+4.- Creamos una nueva conexion 
+
+$ sudo nmcli con add con-name "LAN" ifname enp5s0 type ethernet ipv4.method manual ipv4.addresses 192.168.18.103/24 \
+ipv4.gateway 192.168.18.1 
+
+5.- Agregamos los dns modificando la conexion 
+
+$ sudo nmcli con modify LAN ipv4.dns 8.8.8.8 +ipv4.dns 208.67.220.220
+
+6.-  revisamos y activamos la nueva conexion.
+
+$ nmcli con show
+$ nmcli con show --active 
+## levantamos la interface
+$ nmcli con up LAN
+$ nmcli con show --active
+
+7.- configuramos la conexion de red original para que no inicie en cada inicio 
+
+$ sudo nmcli con modify WIRED connection.autoconnect no 
+
+## reiniciamos 
+$ sudo systemctl reboot 
+
+## luego del reinicio revisamos todo 
+$ nmcli con sh --active 
+## Solo debe aperarecer LAN activa
+
+8.- Probamos conectividad
+
+
+
+
