@@ -1,0 +1,50 @@
+
+RH124-CH12-GUIA-configuring-hostnames-and-name-resolution
+
+1.- conexion con el servidor
+$ ssh student@servera
+
+2.- verificar el nombre actual
+## el nombre actual en uso (Current)
+$ hostname
+## estado del hostname
+$ hostnamectl status
+
+3.- configurar un hostname estatico.
+## cambiamos el nombre
+$ sudo hostnamectl set-hostname "server.pruebas.cl"
+## verificamos los cambios recien realizados 
+$ cat /etc/hostname
+$ hostnamectl status
+
+4.- cambio temporal de hostname
+$ sudo hostname servername.provisiorio.cl
+$ hostname
+servername.provisiorio.cl
+
+## reiniciamos
+$ hostname
+server.pruebas.cl
+
+5.- Agregamos un nickname a nivel local
+##lookup server.pruebas.cl
+$ host server.pruebas.cl
+
+## modificar el archivo /etc/hosts para agregar en nombre "class" como nickname adicional al nombre del servidor
+
+$ sudo vim /etc/hosts
+
+192.168.18.103  server.pruebas.cl  server  class
+
+## lookup ip address del nombre class
+
+$ host class
+$ getent hosts class
+
+### hacemos ping a class 
+
+$ ping -c10 class
+
+ 
+
+

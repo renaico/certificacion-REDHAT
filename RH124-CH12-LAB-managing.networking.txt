@@ -1,0 +1,50 @@
+RH124-CH12-LAB-managing.networking
+
+1.- Coneccion al servidor
+$ assh student@servera
+
+2.- become root
+$ sudo -i
+
+configurar una nueva conexion de red con los siguientes parametros 
+
+Con-name LAB
+interface name enp5s0
+ip 192.168.18.143/24
+GW 192.168.18.1
+dns 8.8.8.8
+dns2 208.67.220.220
+
+### determinamos el nombre de la interface fisica 
+[renaico@RMB-MJRO-M2 ~]$ ip link 
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: enp5s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether c0:3f:d5:ae:09:88 brd ff:ff:ff:ff:ff:ff
+
+## realizamos la configuracion de la nueva interface usando NMCLI
+
+$ nmcli con add con-name LAB ifname enp5s0 type ethernet ipv4.method manual ipv4.addresses 192.168.18.143/24 \
+ ipv4.gateway 192.168.18.1 
+$ nmcli con modify LAB ipv4.dns 8.8.8.8 +ipv4.dns 208.67.222.222
+
+## configurtamos la nueva conecion para autoarrancar en cada inicio 
+
+$ nmcli con modify LAB connection.autoconnect yes 
+
+## la conexion original por el contrario no debe autoarrancar en cada inicio, la idea es que quede apagada 
+
+$ nmcli con modify "Wired connection 1" connection.autoconnect no 
+
+### agregamos la IP 10.0.1.1/24 a la nueva conexion 
+
+$ nmcli con modify LAB +ipv4.address 10.0.1.1/24
+
+6.- Configuramos en el /etc/hosts para que la IP 10.0.1.1/24 sea referencuiada por el nicname "private"
+
+$ echo "10.0.1.1    private" >> /etc/hosts
+
+## reiniciamos el sistema 
+
+$ systemctl reboot
+
