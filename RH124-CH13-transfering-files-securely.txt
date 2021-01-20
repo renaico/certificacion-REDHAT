@@ -1,0 +1,27 @@
+RH124-CH13-transfering-files-securely
+
+$ scp /etc/yum.conf /etc/hosts remoteuser@remote-server:/home/remoteuser
+## Tranfiere /etc/yum.conf /etc/hosts al home del remoteuser en el remote-server
+
+$ scp remoteuser@remote-server:/etc/hosts /home/user
+## tranfire el /etc/hosts desde el remote-server al /home del usuario local
+
+$ scp -r root@remote-server:/var/log /tmp
+### la opcion -r denota recursividad
+## el archivo es copiado al directorio TMP}
+
+### GUIA-transferring-files-between systems securely 
+
+1.- conecion con el servidor
+$ ssh student@servera
+
+2.- copiar /etc/ssh al directorio /home/student/serverbackup desde serverb a servera
+## creamos el directorio
+$ mkdir ~/serverbackup 
+
+## hacemos la copia recursivamente
+
+$ scp -r root@serverb:/etc/ssh ~/serverbackup
+
+## verificamos que la copia haya sido efectiva 
+$ ls -lR ~/serverbackup

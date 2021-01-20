@@ -21,7 +21,7 @@
 $ logger
 ## genera logs manualmente, suado en abientes de pruebas 
 
-$ logger -p local7notice "log entry created on host"
+$ logger -p local.notice "log entry created on host"
 
 Ejemplos de configuracion de logs
 

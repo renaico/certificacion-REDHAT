@@ -1,0 +1,20 @@
+RH124-CH13-GUIA-managing-compressed-tar-files
+
+1.- conexion con el servidor
+$ ssh student@servera
+
+2.- become root
+$ sudo -i 
+
+3.- Crear u archivo comprimido gzip de /etc, llevara por nombre y ubuicacion /tmp/etc.tar.gz
+$ sudo tar -cfz /tmp/etc.tar.gz /etc/*
+
+4.- verificar el contenido del nuevo archivo 
+$ tar -tzf /tmp/etc.tar.gz
+
+5.- Crear el directorio /backuptest, descomprimir en su interior el contenido del archivo /tmp/etc.tar.gz
+$ mkdir /backuptest
+$ cd /backuptest
+$ tar -tfz /tar/etc.tar.gz
+$ tar -xfz /tmp/etc.tar.gz
+$ ls -l

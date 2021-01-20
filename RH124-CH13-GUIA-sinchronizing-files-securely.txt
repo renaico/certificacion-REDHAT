@@ -1,0 +1,24 @@
+RH124-CH13-GUIA-sinchronizing-files-securely
+
+1.- coneicion con el servidor
+$ ssh student@servera
+
+2.- crear el directorio /home/student/serverlogs en servera
+    user rsync para sincronizar /var/log desde serverb hasta server a en /home/student/serverlogs
+
+    ## creamos el directorio /home/student/serverlogs en servera
+    $ mkdir ~/serverlogs
+
+    ## realizamos el proceso de sincronizacion 
+
+    $ rsync -Cravpz root@serverb:/var/log ~/serverlogs
+
+3.- como root en serverb generamos logs manualmente con el objetivo de probar la sincronizacion
+
+$ ssh root@serverb 'logger Log files sinchronized'
+
+## repetimos la sincronizacion 
+$ rsync -Cravpz root@serverb:/var/log ~/serverlogs
+ 
+
+ 

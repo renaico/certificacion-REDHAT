@@ -1,0 +1,64 @@
+RH124-CH13-archiving-and-transfering-files
+
+## TAR 
+## Opciones
+
+-c -> --create -> crear
+-x -> --extract -> extraer
+-t -> --list 
+-v -> --verbose
+-f -> --file --> filename; --file=archivo
+-p -> --preserve-permissions
+-z -> gzip
+-j -> bzip
+
+-J -> --xz --> compresion xz 
+
+ejemplos 
+
+$ tar -cf archivo.tar archivo1.txt, archivo2.txt
+## comprime los archivos .txt dentro del archivo .tar 
+
+$ tar -cf archivo.tar file1.txt,file2.txt,file3.txt
+## forma corta 
+$ tar --file= archivo.tar --create file1.txt,file2.txt,file3.txt
+## forma larga 
+
+$ tar -tf archivo.tar 
+## lista el  contenido del archivo.tar 
+
+$ tar -xf archivo.tar 
+## extrael el contenido de archivo.tar en la ubicacion actual
+
+$ tar -xfp archivo.tar 
+## extrae conservando los permisos 
+
+$ tar -cfz archivo.tar.gz ~/directorio 
+## crea un archivo comprimido en gzip del directorio
+
+$ tar -cfj archivo.tar.bz2 ~/directorio 
+## crea un archivo comprimido en bzip del directorio
+
+$ tar -cfJ archivo.tar.xz ~/directorio
+## crea un archivo comprimido en x2 del directorio
+
+###extract compress files 
+
+$ tar xzf
+$ tar xif
+$ tar xJf
+
+#### Rsync
+
+-r --recursives
+-l --links (sincroniza links simbolicos)
+-p --perms (preserva permisos)
+-t --times (preserva timestamps)
+-g --group (grupo propietario)
+-o --owner (usuario propietario)
+-d --devices (sincroniza archivos de dispositivo)
+
+-n {dry run} (fuerza antes de ejecutar)
+-v --verbose
+-a --archive (no preserva los hardlinks)
+-h hardikns

@@ -1,0 +1,40 @@
+RH124-CH13-LAB-archiving-&-transferring-files
+
+1.- sincronicar el /etc de servera al directorio /configsync en serverb
+
+## nos conectamos el servidor y nos cambiamos al root
+$ ssh student@serverb
+$ sudo -i 
+
+## creamos el directorio en el serverb 
+$ mkdir /configsync
+
+## realizamos la sincronizacion
+
+$ rsync -Cravpz root@servera:/etc /configsync
+
+2.- Usando Gzip crear un archivo llamado 'configfile-backup-servera.tar.gz' con el contenido de / configsync
+
+## creamos el  archivo comprimido 
+$ tar -czf configfile-backup-servera.tar.gz /configsync
+
+## verificamos el contenido del nuevo archivo
+# tar -tzf configfile-backup-servera.tar.gz
+
+3.- usamos scp para trasnferir configfile-backup-servera.tar.gz desde el serverb a workstation en la ubicacion /home/student
+
+$ scp ~/configfile-backup-servera.tar.gz student@workstation:/home/student
+
+4.- en workstation extaer el contenido de configfile-backup-servera.tar.gz en /tmp/savedconfig 
+
+## crear el directorio /tmp/savedconfig
+$ mkdir /tmp/savedconfig
+
+# nos kovemos dentro del directorio 
+$ cd /tmp/savedconfig
+
+### verificamos el contenido del archivo comprimido 
+$ tar tfx ~/configfile-backup-servera.tar.gz 
+
+## extraemos
+$ tar -xfz ~/configfile-backup-servera.tar.gz
