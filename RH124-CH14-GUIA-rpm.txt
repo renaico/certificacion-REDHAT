@@ -1,0 +1,26 @@
+RH124-CH14-GUIA-rpm
+
+1.- conexion con el server
+$ ssh student@servera
+
+2.-  revisar la infromacion, los archivos y scripts de paquete.rpm
+## informacion
+rpm -q -p paquete.rpm -i 
+## archivos
+rpm -q -p paquete.rpm -l
+## scripts
+rpm -q -p paquete.rpm --scripts
+
+3.- extraer el contenido de paquete.rpm en el directorio home de student en servera
+
+$ rpm2cpio paquete.rmp | cpio -tv 
+## lista losa rchivos dentro de paquete.rpm
+
+$ rpm2cpio paquete.rmp | cpio -idv
+## extrae el contenido del paquete rpm
+
+4.- instalar paquete
+$ rpm -ivh paquete.rpm
+
+## verificamos 
+$ rpm -q paquete.rpm

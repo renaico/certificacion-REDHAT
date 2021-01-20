@@ -1,0 +1,47 @@
+RH124-CH14-installing-and-updating-pacakages
+
+## registro en redhat
+
+$ subscription-manager register --username=user --password=password
+$ subscription-manager list -avalaible | less
+## subscripciones disponibles
+$ subscription-manager list -consumed
+## subscripciones consumidas
+
+
+###RPM
+
+$ rpm -qa
+## muetsra toda la lista de paquetes instalados 
+
+$ rpm -qf FILENAME
+## encuentra el paquete que provee FILENAME
+
+$ rmp -q yum 
+#muestra la version actuald e yum instalada en el sistema
+
+$ rmp -qi 'pacakage'
+## informaciond etallada de pacakage
+
+$ rmp -ql 'pacakage'
+# muestra los archivos instalados por el paquete
+
+$ rmp -qc 'pacakage'
+# muestra los archivos de configuracion instalados por el paquete
+
+$ rmp -qd 'pacakage'
+# muestra la documentacion isntalads por el paquete 
+
+$ rpm -q --scripts 'pacakage'
+# muestra los scripts que corren cuando el paquete se instalo o removio
+
+$ rpm -q --changelog 'pacakage'
+# muestra la informacion de cambios del paquete
+
+## busqueda local de paquetes rpm
+$ ls -l  paquete.rpm
+$ rpm -qlp paquete.rpm
+
+### instalacion de paquetes 
+
+$ rmp -ivh paquete.rpm
