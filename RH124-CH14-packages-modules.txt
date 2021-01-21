@@ -1,0 +1,80 @@
+RH124-CH14-packages-modules
+
+$ yum modules list 
+# muestra un listados de todos los modulos disponibles
+
+$ yum module list perl
+## lista los strem de un modulo especifico (perl) y su estado 
+
+$ yum module info perl 
+# muetra los detalles de un modulo (perl en este caso) 
+
+$ sudo yum module install perl 
+# instala un modulo usando el stream y profile por defecto
+
+$ yum module list perl
+## verifica el estado del modulo luego  de ser instalado 
+
+$ sudo yum module remove perl 
+# elimina el modulo perl 
+
+$ sudo yum module disable perl 
+# desabilita el modulo
+
+
+RH124-CH14-GUIA-managing-pacakage-module-streams
+
+1.- conexion con el server 
+$ ssh student@servera
+
+2.- become root
+$ sudo -i 
+
+3.- ezaminar la informacion del modulo python36
+
+## vemos el estado de los modulos disponibles 
+$ yum module list
+
+## modulos instalados
+$ yum module list --installed
+
+## detalles del modulo python36
+$ yum module info python36
+
+4.- instalar el module python36 con el perfil common 
+
+$ yum module install python36:3.6/common
+
+$ yum module list python36
+
+
+5.- switch the module postgresql desde server al profile 10 stream
+
+## revisar status del modulo postgresql, y el stream actualmente activo 
+$ yum module list postgresql
+
+### remover y deshabilitar el stream del modulo postgresql
+$ yum module remove postgresql
+
+## reset postgresql (stream y modulo)
+$ yum module reset postgresql
+
+## ahora reinstalamos el modulo postgresql con el stream 10 
+$ yum module install postgresql:10
+
+## verificamos 
+$ yum module list postgresql
+
+6.- eliminancion completa del modulo postgresql
+
+## removiendo 
+$ yum module remove postgresql
+
+## deshabilitamos el stream del modulo postgresql
+$ yum module disable postgresql
+
+## verificamos que nos aparezca como no instalado
+$ yum module disable postgresql
+
+
+

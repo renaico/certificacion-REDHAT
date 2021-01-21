@@ -1,0 +1,60 @@
+RH124-CH14-enabling-yum-software-repository
+
+## con la subscripcion activa del sistema se habilita el acceso a repositorios relacionados a la subcripcion 
+## listar todos los repositorios disponibles en el sistema 
+$ yum repolist all 
+
+$ yum-config-manager --enable 'reponame'
+## habilita o deshabilita repositorios 
+
+##creando repositorios yum 
+
+$ yum-config-manager --add-repo="repo-url"
+
+## repositorios locales
+
+$ rpm --import 'repo-url'
+$ yum install 'repo.rpm'
+
+RH124-CH14-GUIA-enabling-yum-software-repo
+
+1.- conexion con el servidor
+$ ssh student@servera
+
+2.- become root
+$ sudo -i 
+
+3.- Creamos el repositorio
+$ yum-config-manager --add-repo "repo-url"
+
+## el anterior comando crea un archivo en /etc/yum.repos.disponibles
+$ sudo vim /etc/yum.repo.d/nuevo-repo
+gpgcheck=0 para desabilitar la clave gpgkey
+
+## errata repo
+$ sudo vim /etc/yum.repos.d/errata.repo
+
+[rht-updates]
+name=rht updates
+baseurl=repo-url
+enabled=1
+gpgcheck=0
+
+## listamos todos los repositorios
+$ yum repolist all
+
+4.- deshabilitar el rht-updates, instalar rht-system
+
+$ yum-config-manager --disable rht-updates
+
+## listar el contenido de rht-system
+$ yum list rht-system
+## instalar rht-system
+$ yum install rht-system
+
+## verificamos 
+$ yum list rht-system
+
+5.- habilitamos el repo rht-updatesy actualizar desde ahi 
+$ yum-comfig-manager --enable rht-updates
+$ yum update

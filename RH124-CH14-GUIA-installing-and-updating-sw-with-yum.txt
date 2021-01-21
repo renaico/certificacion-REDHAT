@@ -1,0 +1,32 @@
+RH124-CH14-GUIA-installing-and-updating-sw-with-yum
+
+1.- conexion con el server
+$ ssh student@servera
+
+2.- become root
+$ sudo -i 
+
+3.- busqueda de un paquete especifico
+
+## intentar correr el comando guile
+$ guile
+not found
+
+## realizar la busqueda de los paquetes relacioandos con guile
+$ yum search guile
+
+## mostrar la informacion de guile
+$ yum info guile
+
+## instalamos guile
+$ sudo yum install guile
+
+## removiendo guile
+$ sudo yum remove guile
+
+6.- mostramos la informacion detallada del grupo "RPM Development Tools"
+
+##vemos todos los grupos disponibles
+$ sudo group list
+
+$ desplegamos la informacion detalada del grupo "RPM development Toosls"

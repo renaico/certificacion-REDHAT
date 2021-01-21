@@ -1,0 +1,52 @@
+RH124-CH14-LAB-installing-updating-sw-packages
+
+1.- en serverb crear un repositorio para ctualizaciones, llevara por nombre errata, estar en el archivo 
+/etc/yum.repos.d/errata.repo, no chequear la gpgkey
+
+## conexion con el server
+$ ssh student@serverb
+
+# become root 
+$ sudo -i 
+
+## creamos el archivo del repositorio
+$ vim /etc/yum.repos.d/errata.repo
+
+[errata]
+name= Red Hat Updates
+baseurl='repo-url'
+enabled=1
+gpgcheack=0
+
+2.- en serverb: 
+    install xsane-gimp
+    install el modulo apache con el stream 2.4 y el perfil common 
+
+## analizamos la informacion del paquete xsane-gimp
+$ yum list xsane-gimp
+
+## instalamos el paquete
+$ yum install xsane-gimp
+
+## listamos lo modulos disponibles, buscamos el modulo http con el stream 2.4 y el perfil common
+$ yum module list 
+
+##instalamos el modulo de apache
+$ yum module install https:2.4/common
+
+3.- Eliminar todos los paquetes de cups
+
+# buscamos informacion actual del paquete
+$ yum list cups
+
+# removemos todo de cups
+$ yum remove cups*
+
+4.- instalar un paquete rpm
+
+## revisamos la informacion del paquete en cuestion
+$ rpm -q-p paquete.rpm -i 
+
+## instalamos con localinstall 
+$ sudo yum localinstall paquete.rpm
+

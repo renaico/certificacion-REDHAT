@@ -1,0 +1,39 @@
+RH124-CH14-YUM
+
+$ yum list 'http*'
+## muesra todos los paquetes instaladas y disponibles referentes a http
+
+$ yum search 'string'
+## busca los paquetes que contengan 'string'
+
+$ yum search all 'web server' 
+## busca en el nombre y descripcion 
+
+$ yum info httpd
+## para obtener informacion de apache web server 
+
+$ yum provides 'string'
+## bsuca y lista todos los paquetes que provean el concepto de la busqueda
+
+install
+update
+remove
+
+$ sudo yum update
+## actualizacion del sistema 
+
+$ sudo yum remove httpd
+## remueve los paquetes de http
+
+## installing and removing groups of sofware con yum 
+
+$ yum group list
+## muestra los grupos instalados y disponibles
+
+$ yum group list hidden
+## lista los grupos ocultos 
+
+# yum group info "RPM Development Tools"
+## informacion del grupo, incluye los nombres de los paquets
+
+$ sudo group install "RPM Development Tools"
