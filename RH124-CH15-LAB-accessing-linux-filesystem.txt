@@ -1,0 +1,33 @@
+RH124-CH15-LAB-accessing-linux-FILESYSTEM
+
+1.- en serverb identifica el UUID de /dev/vdb1 para montarlo en /mnt/freespace usando el UUID
+
+## conexion con el server
+$ ssh student@serverb
+
+## become sudo 
+$ sudo -i 
+
+## identificar el UUID 
+$ lsblk -fp /dev/vdb
+
+## creamos el /mnt/freespace
+$ mkdir /mnt/freespace
+
+## montamos 
+$ mount UUID='XXXX...' /mnt/freespace
+
+## verificamos el montaje
+$ lsblk -fp /dev/vdb1
+
+2.- Generamos un reporte de uso de disco del directorio /usr/share, almacenar en el archivo /mnt/freespace/results.txt
+
+$ du /usr/share >> /mnt/freespace/results.txt
+
+3.- buscar losa rchivos de configuracion de rsyslog usando locate, almacenar el resultado en /mnt/freespace/search1.txt
+$ updatedb
+$ locate rsyslog.conf > /mnt/freespace/search1.txt
+
+4.- dentro de /usr/share, Buscar los archivos con mas 50Mb y menos de 100Mb alamacenar el resultado en /mnt/freespace/search2.txt
+
+$ find /usr/share -size *50M -size 100M > /mnt/freespace/search2.txt

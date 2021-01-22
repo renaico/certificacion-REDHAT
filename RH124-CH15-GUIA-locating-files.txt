@@ -1,0 +1,33 @@
+RH124-CH15-GUIA-locating-files
+
+1.- conexion con el servidor
+$ ssh student@servera
+
+2.- usamos locate para buscar archivos 
+
+## actualiza mos la base de datos de locate
+$ sudo updatedb
+
+## buscamos logrotate.conf
+$ locate logrotate.conf
+
+## buscamos networkmanager.conf ignoring case 
+
+$ locate -i networkmanager.conf 
+
+3.- find 
+
+## buscar todos los archivos de propiedad de chrony dentro de /var/lib
+$ sudo find /var/lib -user chrony
+
+## buscar los archivos pertenecientes a root y al grupo mail dentro del directorio /var 
+$ sudo find /var -user root -group mail
+
+## buscar los archivos de mas ed 50kb dentro de /usr/bin
+$ sudo find /usr/bin -size +50k
+
+## buscar dentro del home del usuario todos los archivos sin cambios dentro los ultimos 12m minus
+$ find /home/student -mmin 120
+
+## buscar los blockdevices dentro de /dev
+$ find /dev -type b

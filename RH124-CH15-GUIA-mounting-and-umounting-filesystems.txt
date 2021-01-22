@@ -1,0 +1,33 @@
+RH124-CH15-GUIA-mounting-and-umounting-file-systems
+
+1.- conexion con el servidor 
+$ ssh student@servera
+
+2.- se agrego un nuevo disco  /dev/vdb montar con el UUID en /mnt&/newspace
+
+##become sudo 
+$ sudo -i 
+
+## creamos el directorio /mnt/newspace
+$ mkdir /mnt/newspace
+
+### obtenemos el UUID de /dev/vdb
+
+$ lsblk -fp /dev/vdb
+
+## realizamos el montaje del recurso 
+$ mount UUID="xxxx...." /mnt/newspace
+
+## verificamos el montaje 
+$ lsblk -fp /dev/vdb
+
+3.- creamos contenido dentro del nuevo espacio montado
+$ cd /mnt/newspace
+$ mkdir newdir
+$ touch newdir/newfile
+
+4.- desmontar 
+
+$ cd /
+$ sudo umount /mnt/newspace
+

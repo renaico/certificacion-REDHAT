@@ -1,0 +1,133 @@
+RH124-CH15-ACCESSING-LINUX-FILESYSTEM
+
+$ df
+## espacio total del disco
+
+$ df -h 
+## muestra el espacio en disco, disponible y utilizado 
+
+$ du -h /directorio
+## detalle del tamaño en disco de todos los archivos dentro de /directorio 
+
+$ lsblk
+## BLOCK DEVICE
+
+$ lsblk -fp 
+## lista toda la ruta del dispositivo, incluyendo los puntos de montaje (subcarpetas)
+
+$ mount 
+# montar 
+
+$ umount 
+## desmontar 
+
+$ lsof
+## archivos abiertos en el directorio que queremos desmontar
+
+$ lsblk -fp /dev/vda
+## muestra el UUID y la ruta del dispositivo /dev/vda
+
+$ mount UUID='XXX...' /mnt/newspace
+
+### locating files 
+
+$ locate -> mlocate database
+$ find
+
+$ updatedb 
+## actualiza mlocate database
+
+## debemos tener permisos sobre lo que estamos bsucando para evitar errores y obtener resultados de la busqueda
+
+## opciones de locate
+
+-i -> Case sensitive
+-n -> limita el numero de lineas en pantalla 
+
+$ locate -n 5 snon.png 
+## muestyra solo las primeras 5 lineas del resultado de la busqueda
+
+## Busqueda en tiempo real 
+
+$ find / -name "string"
+## busqueda por nombre (-name)
+
+$ find / -name '*.txt'
+## busca todos los txt
+
+$ find /etc -name '*pass*'
+## busca en /etc todos los archivos que contengan 'pass'
+
+## iname -> case-insensitive, no casesensitive
+
+$ find / -iname '*messages*'
+## busca todos los archivos que contengan 'messages', sin importar si esta escrito en mayus o minus
+
+### busqueda bsasada en permisos o propiedad
+
+$ find -user user
+## busca todos los archivos propiedad de 'user'
+
+$ find -group user
+## muestra los archivos propiedad del grupo user en el /home/user
+
+$ find -uid 1000
+## muestra los archivos del UID 1000 en el /home/user
+
+$ find -gid 1000 
+## muestra los archivos del GID 1000 en el /home/user 
+
+$ find / -user root -group mail 
+## busca los archivos pertenecientes al root y al grupo mail
+
+$ find /home -perm 764
+## bsuqueda de los archivos con permisos 7/rwx para el usuario, 6/rw- para el grupo y 4/r-- para el grupo 
+
+$ find /home -perm -324 
+## busca los archivos con al menos permisos de escritura y ejecucion para el user, escritura para el grupo y lectura para los otros 
+
+$ find /home -perm /442
+## busca los archivos con permisos de rw- para el user o rw- para el grupo o -2- para los otros 
+
+$ find -size 10m
+## busqueda de los archivos de 10M 
+
+$ find -size +10G 
+## bsuqueda de los archivos de mas de 10 GID
+
+$ find -size -10k
+## busca archivos de menos de 10k 
+
+##### busqueda bsada en ultima fecha de modificacion 
+
+$ find / -mmin 120 
+## busqueda de archivos modificados hace 120 minutos atras 
+
+$ find / -mmin +200 
+## busqueda de archivos modificados hace mas de 200 minutos atras
+
+$ find / -mmin -150 
+## busqueda de archivos modificados hace menos de 150 minutos atras
+
+##### busqueda basada en tipo de archivo 
+
+f -> regular FILES
+d -> directorio
+l -> softlink
+b -> block DEVICE
+
+$ find /etc -type d
+## busqueda de todos los directorios dentro de /etc
+
+$ find / -type l 
+## busqueda de los softlinks en el sisitema (raiz)
+
+$ find /dev -type b 
+## busqueda de los block devices dentro de /dev
+
+$ find / -type f -links +1 
+## busqueda de todos los archivos regulares con mas de un hardlink
+
+$ find / -type f -links +2
+## busqueda de todos los archivos regulares con menos de 2 hardlinks
+
