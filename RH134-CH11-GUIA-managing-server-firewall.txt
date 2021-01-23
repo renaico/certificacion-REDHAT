@@ -1,1 +1,53 @@
 RH134-CH11-GUIA-managing-server-firewall
+
+1.- conectarse al servidor a via ssh
+$ ssh student@servera
+
+2.- revisar si los paquetes httpd y mod_ssl esten instalados
+configurar el firewall para que el servidor web corra sobre ssl 
+
+$ sudo yum install httpd mod_ssl
+
+3.- Como student en el servera, crear el archivo /var/www/html/index.html con el texto "hola soy servera"
+
+$ sudo bash -c "echo 'Hola Soy servera' >> /var/www/html/index.html"
+
+4.- Iniciamos y habilitamos el servicio httpd
+$ sudo systemctl enable --now httpd
+
+5.- Salimos del servera
+
+6.- TRatamos de acceder al sitio web desde workstation 
+
+$ curl -k http://servera
+$ curl -k https://servera
+
+## ambos comando entregaran error 
+
+7.- retomamos la conexion a server a mediante ssh 
+$ ssh student@servera
+
+8.-  confirmar que el servicio nftables este masked y que firewalld este habilitado y corriendo
+
+$ sudo systemctl status nftables
+loaded
+
+## enmascaramos el servicio nftables
+$ sudo systemctl mask nftables
+
+## confirmamos el estado del servicio nftables
+$ sudo systemctl status nftables
+masked
+
+### revisamos el estado del servicio firewalld
+$ sudo systemctl status firewalld
+active
+
+## salimos del servera
+
+9-. realizar la configuracion en el firewall que permita acceder a la pagina web mediante ssl 
+permitir el servicio https
+
+
+
+
