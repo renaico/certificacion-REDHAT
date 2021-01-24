@@ -1,0 +1,61 @@
+RH134-CH5-SELINUX
+
+$ LS -Z ARCHIVO 
+###Muestra el contexto de ARCHIVO
+
+$ semange login -L 
+## muetra el listado de mapeos entre selinux y las cuentas de usuario 
+
+$ getsebol -a
+## Muestra todos los boleanos 
+
+$ setsebol [-p ] "boelanname" [on; off]
+## activa o desativa un boleano
+
+## -Z parametro indicativo de selinux, acompaña varios comandos 
+$ ls -Z 
+$ ps -auxZ
+
+$ chcon user_u:role_r:type_t:so /ruta/del/archivo
+## sintaxis base del cambio de contexto de un archivo 
+
+## selinux user no es equivalente a los usuarios en /etc/passwd
+
+# unconfined = permisive
+
+$ getenforce 
+#muestra el estado de Selinux
+
+$ setenforce [0; 1]
+# habilita o deshabilita selinux, hasta el proximo reinicio 
+
+## para que selinux se deshabilite de forma permanente se debe editar el archivo /etc/selinux/config
+Donde los estados son: 
+enabled
+disabled
+permissive 
+
+$ cp -a 
+# copia conservando el contexto selinux
+
+## ejemplos
+
+$ ls -Z /var/www/html/index.html
+            :https_sys_content_t:
+## revision del contexto del archivo 
+
+$ ls -Zd /var/www/html
+## revision del contexto del directorio
+
+##creamos un archivo fuera del directorio /var/www/html, luego revisamos su contexto 
+$ touch /tmp/arch1 /tmp/arch2
+$ ls -Z /tmp/arch1
+        :user_tmp_t
+
+## si movemos uno de los archivos al directorio /var/www/html, este conserva su contexto original 
+## sin embargo si hubieramos copiado el archivo hereda el contexto del directorio 
+
+
+$ chcon
+# cambia el contexto de forma temporal 
+
