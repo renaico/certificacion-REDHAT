@@ -1,0 +1,111 @@
+RH134-CH11-LAB-managing-network-security 
+
+### UN NUEVO SERVIDOR WEB BIND EN LOS PUERTOS 80/TCP Y 1001/TCP
+EL PUERTO 22/TCP DEBE ESTAR DISPONIBLE PARA SSH TAMBIEN 
+LOS CAMBIOS DEBEN SER PERSISTENTES AL RENICIO 
+
+1.- testeamos el acceso al sitio utilizando los dos puertos indicados (80.1001)
+$ curl http://serverb
+refused
+$ curl http://serverb:1001 
+refused
+
+2.-  Nos logueamos en el serverb para determinar que esta cerrando el acceso 
+
+## login como student en el serverb
+$ ssh student@serverb
+
+## revisamos que el servicio httpd este activo 
+$ systemctl is-active httpd.service 
+inactive
+
+## intentamos activar el servicio httpd
+$ sudo systemctl enable --now httpd.service
+error**
+
+## utilizamos status ṕara tratar de revisar el por que del error
+
+$ sudo  systemctl status httpd.service
+*** could no bind to address [::]1001
+*** could no bind to address 0.0.0.0:1001
+
+## utilizamos sealert para determinar si selinux estuviera bloqueando la ejecucicon del servicio httpd
+$ sudo sealert -a /var/log/audit/audit.log
+## recibimos la respuesta de que el puerto 1001 no esta asociado al PORT_TYPE de SELINUX
+
+
+3.- Configuramos selinux para permitir que el servicio http "BIND" en el puerto 1001/TCP
+
+## utilizamos semanage para determinar el PORT_TYPE correcto para el caso de http
+
+$ sudo semanage port -l | grep http
+http_port_t
+
+# agregamos con semanage la regla que permite que http escuche en el puerto 1001/tcp
+$ sudo semanage port -a -t http_port_t -p tcp 1001
+
+## confirmamos que el puerto 1001/tcp sea escuchado por http
+$ sudo semanage port -l | grep http_port_t
+
+### habiltamos el servici httpd
+$ sudo systemctl enable --now httpd
+
+## verificamos que httpd este en estado running 
+$ sudo systemctl is-active httpd;  sudo systemctl is-enabled httpd
+active
+enabled
+
+5.- salimos de serverb y desde workstation revisamos el acceso al servidor web
+
+serverb ~]$ exit 
+workstation ~]$ curl http://serverb
+SERVER B
+workstation ~]$ curl http://serverb:1001 
+.... port 1001 no route to host
+
+6.- Nuevamente acedemos al serverb para revisar la redirecciond e puertos del firewall
+$ ssh student@serverb
+
+## become root
+$ sudo -i 
+
+## revisamos que la zona del firewall por defecto esta seteada en public
+$ firewall-cmd --get-default-zone
+public
+
+## si en el comando anterior no public no fuera la zona por defecto, realizar la configuracion de esta zona 
+como la cona por defecto
+
+$ firewall-cmd -set-default-zone public
+
+### revisaremos que puertos estan abiertos dentro de esta zona 
+
+$ firewall-cmd --permanent --zone=public --list-all
+## no hay puertos ni servicios 
+
+6.- agregamos el puerto 1001/tcp a la configuracion permanente de la zona public 
+
+## agregamos el puerto 
+
+$ sudo firewall-cmd --permanent --zone=public --add-port=1001/tcp
+
+## recargamos la configuracion del firewall 
+
+$ sudo firewall-cmd --reload
+
+### confirmamos la configuracion
+
+$ firewall-cmd --permanent --zone=public --list-all
+ports: 1001/tcp
+
+## salimos del serverb 
+serverb ~]$ exit 
+
+7.- desde workstation revisamos el acceso al sitio
+
+workstation ~]$ curl http://serverb
+SERVER B
+workstation ~]$ curl http://serverb:1001 
+VHOST 1
+
+

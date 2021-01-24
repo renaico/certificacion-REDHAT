@@ -1,2 +1,27 @@
 RH134-CH11-SELINUX-PORT-LABELING
 
+$ semanage port -l 
+## Muestra el listado de los puertos etiquetados por selinux segun su servicio 
+
+$ semanage port -l | grep ftp 
+## para hacer la busqueda mas fina 
+
+$ semanage port -a -t 'port_label' -p 'tcp/udp' 'portnumber'
+$ semanage port -a -t gopher_port_t -p tcp 71
+## en el ejemplo se permite que gopher escuche en el puerto 71 tcp
+### -a -> adds new port
+    -t -> type
+    -p -> protocol 
+
+$ semanage -l -c 
+### ver los cambios locales en la policy por defecto
+
+$ semanage port -d -t gopher_port_t -p tcp 71
+## -d -> delete, borra la regla de escucha en el puerto 71 tcp 
+
+$ semanage port -m -t http_port_t -p tcp 71
+### -m -> modificar al redireccion de puertos 
+### permite que el trafico http utilice el puerto 71/tcp
+
+
+

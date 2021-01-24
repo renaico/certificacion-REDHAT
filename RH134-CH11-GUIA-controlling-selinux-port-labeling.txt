@@ -1,0 +1,48 @@
+RH134-CH11-GUIA-controlling-selinux-port-labeling
+
+###CONTEXTO  :   UNA NUEVA APPLICACION WEB CORRE EN EL PUERTO 82/tcp, NO ES ACCESIBLE VIA WEB 
+
+1.- conexion con el server
+$ ssh student@servera
+
+2.- become sudo 
+$ sudo -i 
+
+3.- Intentaremos solucionar el problema reiniciando el servicio httpd
+$ systemctl restart httpd.service
+## como es de esperarse recibimos un error 
+
+$ systemctl status httpd
+## revisamos el status del servicio 
+failed
+
+$ systemctl status -l httpd.service
+### revisamos el estado del servicio 
+
+### revisamos si selinux estuviera bloqueando el funcionamiento del servicio.
+$ sudo sealert -a /var/log/audit&/audit.log
+
+
+4.- Configurar selinux para permitir que httpd bind en el puerto 82/tcp
+
+## Determinaremos el tipo corresto de puerto usando semanage
+
+$ semanage port -l | grep http
+http_por_t  tcp 80.. 
+
+## usaremos semanage para asignarle el puerto 82/tcp al tipo http_por_t
+$ semanage -a -t http_por_t -p tcp 82
+
+## reniciamos el servicio 
+$ systemctl restart httpd.service
+
+5.- Revisamos el acceso al sitio web desde serverb
+$ curl http://servera:82
+
+6.-  Abrimos el puerto indicado 
+$ firewall-cmd --add-port=/tcp --permanent
+
+$ firewall-cmd --reload
+
+## finalmente revisamos el acceso al sito 
+$ curl http://servera:82
