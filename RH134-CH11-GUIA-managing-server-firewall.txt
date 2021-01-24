@@ -48,6 +48,15 @@ active
 9-. realizar la configuracion en el firewall que permita acceder a la pagina web mediante ssl 
 permitir el servicio https
 
+$ sudo firewall-cmd --permanent --zone=public --add-port=443/tcp
+$ sudo firewall-cmd --permanent --zone=public --ass-service=https
+$ sudo firewall-cmd --reload 
+
+10.- Accededemos esta vez sin errores a la pagina web de prueba en servera
+
+$ curl -k https://servidora
+
+
 
 
 

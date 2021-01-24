@@ -1,0 +1,43 @@
+RH134-CH11-managing-network-security
+
+##firewall-cmd comandos
+
+--get-default-zone --> muestra la zona actual 
+
+--set-default-zone="ZONE" --> setea la zona "ZONE" como la zona por defecto 
+                                cambia runtime y permanent
+
+--get-zones --> muestra todas las zonas disponibles 
+
+--get-active-zones -> lista las zonas en uso (con configuraciones)
+
+--add-source=CIDR [--zone=ZONE] -> enruta todo el trafico proviniente de la red,ip o mascara 
+                                    a la zona especificada, si la zona no es especificada 
+                                    se enruta a la zona por defecto
+
+--remove-source=CIDR [--zone=ZONE]  ->  remueve la regla de enrutar todo el trafico de la red, ip, o mascara 
+                                        a la zona especificada 
+
+--add-interface=INTERFACE [ --zone=ZONE ]   -> enruta todo el traico proviniente de INTERFACE a la zona 
+                                                especificada, si la zona no es especificada el trafico se envia 
+                                                a la zona por defecto
+
+--change-interface=INTERFACE [--zone=ZONE]  -> asocia la INTERFACE con la zona especificada, en caso de no especifiarse
+                                            zona, el cambio es realizado en la zona por defecto actualmente en uso 
+
+
+--list-all [--zone=ZONE]    ->  lista todos los detalles y configuraciones de la zona especificada  
+                                si no especifica zona hace referencia a la zona por defecto 
+
+
+--list-all-zones    -> informacion de todas las zonas 
+
+--add-service=SERVICE [--zone=ZONE] -> permite el trafico de SERVICE, si no se especifica una zona agrega la regla en la 
+                                        zona por defecto 
+
+--add-port=PORT/PROTOCOL [--zone=ZONE] -> permite el trafico de PORT/PROTOCOL, si la zona no es especifica la regla 
+                                                se aplica a la zona por defecto
+
+--remove-port=PORT/PROTOCOL [--zone=ZONE] -> 
+
+--add-service=SERVICE [--zone=ZONE] -> 
