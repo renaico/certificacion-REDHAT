@@ -1,0 +1,129 @@
+RH134-CH5-GUIA-controling-selinux-file-contexts
+
+$ touch /tmp/file1 /tmp/file2
+$ ls -Z /tmp/file*
+                user_tmp_t  file1
+                user_tmp_t  file2
+
+$ mv /tmp/file /var/www/html
+$ cp /tmp/file2 /var/www/html
+
+$ ls -Z /var/www/html/file*
+                user_tmp_t  file1
+                httpd_sys_content_t file2
+
+## al copiar un archivo este adopta el contexto del directorio destino, sin embargo al mover se conserva el contexto del directorio 
+original
+
+## cambiando el contexto de archivos
+
+$ mkdir /virtual
+$ ls -Zd /virtual
+                deafult_t
+
+$ chcon -t httpd_sys_content_t /virtual
+$ ls -Zd /virtual
+                httpd_sys_content_t
+
+## chcon con la opcion -t establece un contexto para el directorio especificado 
+
+$ restorecon -v /virtual
+## vuelve el contexto del directorio /virtual a su contexto original
+
+$ ls -Zd /virtual
+                deafult_t
+
+
+### definiento reglas para los contextos por defecto
+### para completar estas configuraciones deben estar instalados los paquetes 'policycoreutil' y 'policycoreutil-python'
+
+## semanage fcontext modifica o controla las reglas que restorecon utiliza para establecer los contextos por defecto
+
+-a; --add
+-d; --delete
+-l; --list
+
+$ ls -Z /var/www/html/file*
+                user_tmp_t  file1
+                httpd_sys_content_t file2
+
+$ semanage fcontext -l 
+/var/www(/.*)?  all files xxxxxxxxxx:httpd_sys_content_t:xxxxxxxxxx
+
+$ restorecon -Rv
+relabeled file1...
+
+$ ls -Z /var/www/html/file*
+                httpd_sys_content_t     file1
+                httpd_sys_content_t     file2
+
+### agregando contexto a un nuevo directorio 
+
+$ mkdir /virtual
+$ touch /virtual/index.html
+$ ls -Zd /virtual/
+                deafult_t
+$ ls -Z /virtual
+                deafult_t
+
+### cambiamos el contexto ocn semanage fcontext
+$ semanage fcontext -a -t httpd_sys_content_t '/virtual(/.*)?'
+
+## hacemos el relabele con restorecon
+$ restorecon -RFvv /virtual
+
+##revisamos
+$ ls -Z /virtual
+                httpd_sys_content_t
+
+
+####GUIA
+
+1.-  conexion con el servidor 
+$ ssh student@seervera
+
+2,. become root
+$ sudo -i
+
+3.- Configurar apache para que use un "document root" en una ubicacion distinta
+
+## creamos el nuevo document root, /custom
+$ mkdir /custom
+
+# creamos un index dentro de custom
+$ echo 'Esto es servera. ' >> /custom/index.html
+
+# editamos el archivo de configuracion de http para cambiar el Document root
+
+$ vim /etc/httpd/conf/httpd.conf
+DocumentRoot "/custom"
+<Directory> "/custom"
+
+4.- Iniciamos el servicio de apache 
+$ systemctl enable --now httpd.service
+$ systemctl start httpd.service
+
+## revisamos el estado del servicio 
+$ systemctl status httpd.service 
+active (running)
+
+5.- al tratar de abrir el sitio habilitado recibiremos errores
+
+6.- cambiamos el contexto del directorio para que la configuraciond e apache pueda funcionar 
+
+## consultamos el contexto actual de /custon
+$ ls -Zd /custom
+            deafult_t
+
+## cambiamos el contecto con semanage fcontext 
+
+$ semanage fcontext -a -t httpd_sys_content_t '/custom(/.*)?'
+
+## realizamos el relabel con restorecon
+
+$ restorecon -RFvv /custom
+
+8.- Ahora deberiamos poder acceder al sitio http://servera/index.html
+
+
+

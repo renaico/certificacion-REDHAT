@@ -1,0 +1,46 @@
+RH134-CH5-GUIA-changing-selinux-enforcement-mode
+
+1.- conexion con el servidor
+$ ssh student@servera
+
+2.- become root
+$ sudo  -i
+
+3.- Cambiar el estado del Selinux a permissive y luego reiniciar
+
+## revisamos el estado actual de selinux con getenforce
+$ getenforce
+enforcing
+
+### editamos el archivo /etc/selinux/config para cambiar el estado de selinux
+$ vim /etc/selinux/config 
+SELINUX=permissive
+|||
+### usamos grep para leer el archivo y confirmar el cambio anterior
+# grep '^SELINUX' /etc/selinux/config
+SELINUX=permissive
+
+###reiniciamos
+$systemctl reboot
+
+4.- retomamos la conexion y como root revisamos el estado de selinux
+$ ssh student@servera
+$ sudo -i
+$ getenforce
+permissive
+
+5.- Devolvemos selinux al estado enforcing, este cambio solo tendra efecto reiniciando la maquina 
+
+$ vim /etc/selinux/config 
+SELINUX=enforcing
+
+## confirmamos el cambio anterior
+# grep '^SELINUX' /etc/selinux/config
+SELINUX=enforcing
+
+6.- usamos setenforce para cambiar selinux sin reiniciar
+
+$ setenforce 1
+$ getenforce
+enforcing
+

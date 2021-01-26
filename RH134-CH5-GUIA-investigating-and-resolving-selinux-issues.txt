@@ -1,0 +1,20 @@
+RH134-CH5-GUIA-investigating-and-resolving-selinux-issues
+
+1.- conexion al servera
+$ ssh student@servera
+
+2.- become root
+$ sudo -i
+
+3.- hay un error al momento de tratar de abrir el sitio http://servera/index.html
+
+4.- usando less podemos ir revisando el archivo de log /var/log/messages
+podemos buscar sealert con el caracter /
+
+$ less /var/log/messages
+/sealert
+
+sealert -l xxx....x..x.x.
+
+5.- ejecutamos el sugerido sealert 
+$ sealert -l xxx....x..x.x.

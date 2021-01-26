@@ -1,0 +1,54 @@
+RH134-CH5-GUIA-adjusting-selinux-policy-with-booleans
+
+1.- conexion con el servidor
+$ ssh student@servera
+
+2.- become root
+$ sudo -i 
+
+3.-  Para habilitar la caracteristica de apache que permite publicar contenido web desde el home del usuario 
+debemos editar el archivo de configuracion de apache /etc/httpd/conf.d/userdir.conf, como se muestra mas abajo.
+
+$ vim /etc/httpd/conf.d/userdir.conf
+# UserDir disabled
+UserDir public_html
+
+## confirmamos los cambios usando grep. 
+
+$ grep UserDir /etc/httpd/conf.d/userdir.conf
+# UserDir disabled
+UserDir public_html
+
+5.- Iniciamos y habilitamos el servicio httpd
+$ systemctl enable --now httpd
+$ systemctl start httpd
+
+6.- en otra terminal nos logueamos como student en servera 
+creamos un directorio en home y dentro del mismo algun archivo web de pruebas 
+
+## conexion al servera
+$ ssh student@servera
+
+## creamos el directorio
+$ mkdir ~/public_html
+
+## creamos el archivo web
+$ echo 'esto es servera de student' >> ~/public_html/index.public_html
+
+## configuramos los permisos adecuados
+$ chomd -R 711 ~/public_html
+
+7.- Si abrimos el sitio web http://servera/~student/index.html tendremos error 
+
+8.- en la terminal de root usamos getsebool para encontrar boleanos que esten bloqueando los directorios de home
+
+$ getsebool -a | grep home
+httpd_enable_homedirs   --> off
+
+9.- realizamos la habilitacion del booleano 
+$ setsebool -P httpd_enable_homedirs on 
+
+10.- accedemos al sitio http://servera/~student/index.html
+
+
+

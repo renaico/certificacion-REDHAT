@@ -25,7 +25,7 @@ $ sudo sealert -a /var/log/audit&/audit.log
 
 4.- Configurar selinux para permitir que httpd bind en el puerto 82/tcp
 
-## Determinaremos el tipo corresto de puerto usando semanage
+## Determinaremos el tipo correcto de puerto usando semanage
 
 $ semanage port -l | grep http
 http_por_t  tcp 80.. 

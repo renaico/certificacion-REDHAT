@@ -27,7 +27,7 @@ $comando1; comando2
 %m # mes en formato mm 
 %y # año en formasto yy
 %z # abreviatura de la zona horaria
-%F # fecha completa en formasto yyyy-mm-dd 
+%F # fecha completa en formato yyyy-mm-dd 
 %T # hora en formato (HH:MM:SS)
 
 $ date --set "2020-12-05 23:00:00"
