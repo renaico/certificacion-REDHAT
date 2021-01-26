@@ -1,0 +1,19 @@
+RH134-CH5-LAB-managinig-selinux-security
+
+1.- conexion en el servidor como root 
+$ ssh student@serverb
+$ sudo -i
+
+2.- en un navegado trataremos de abrir el sitio http://serverb/lab.html
+obtendremos el error de que no tenemois permisos para acceder al archivo lab.html
+
+3.- investigar con las herramientas de busqueda por que selinux esta bloqueando que apache sirva el contenido web
+
+### leemos el archivo /var/log/messages usando less, deberiamos ver mensajes 
+relacionados con sealert
+
+$ less /var/log/messages
+
+4.- Ejecutamos la sugerencia de sealert
+
+$ sealert -l xxxx...xxx..x.x..xxx

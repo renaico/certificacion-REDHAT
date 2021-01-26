@@ -18,3 +18,20 @@ sealert -l xxx....x..x.x.
 
 5.- ejecutamos el sugerido sealert 
 $ sealert -l xxx....x..x.x.
+
+6.- para revisar en /var/log/audit/audit.log
+-m -> tipo de mensaje
+-ts -> busqueda basada en tiempo 
+$ ausearch -m AVC -ts recent
+
+7.- cambiamos el contexto segun el contexto que corresponda a http usando semanage fcontext
+luego ralizar el relabel con restorecon 
+
+$ semanage fcontext -a -t httpd_sys_content_t '/custom(/.*)?'
+
+$ restorecon -RFvv /custom
+
+8.- Abriendo el sitio http://servera/index.html 
+deberiamos ver el contenido 
+
+
