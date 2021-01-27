@@ -1,0 +1,51 @@
+RH134-CH10-controlling-the-boot-process
+
+$ systemctl list-dependencies graphical.target | grep target 
+### muestra todas las dependencias del target grafico
+
+$ systemctl list-units --type=target --all
+## muestra todos los targets disponibles
+
+$ systemctl isolate "target"
+## cambia el target en caliente 
+
+$ systemctl isolate graphical.target
+$ systemctl isolate multiuser.target 
+
+### solo los targets conel parametro "AllowIsolate=yes" establecido en su archivo de configuracion pueden ser isolados
+
+renaico@RMB-MJRO-M2 ~]$ systemctl cat graphical.target | grep AllowIsolate
+AllowIsolate=yes
+
+
+### default target 
+
+$ systemctl get-default
+## muestra el target configurado por defecto
+
+$ systemctl set-default graphical.target
+## configura el target grafico por defecto en el sistema
+## se crea un link simbolico /etc/systemd/system/defaul.target -> /usr/lib/systemd/system/graphical.target
+
+$ systemctl get-default 
+## muestra el target configurado, en este caso despues de forzarlo con el comando anterior
+
+## seleccionar un target diferente al inicio del sistema
+
+1.- reiniciamos el sistema
+$ systemctl reboot
+
+2.- Interrumpumos el inicio con cualquier tecla menos con ENTER
+
+3.- Seleccionamos la entrada del kernel que iniciaremos
+
+4.- presionamos 'e' sobre la entrada del kernel seleccionada
+
+5.- Movemos el cursos hasta la linea que comienza con la palabra Linux, y nos vamos al fin de dicha linea y agregamos 
+systemd.unit=recue.target
+
+6.- presionando las teclas cntrl + x inicamos con dichos cambios
+
+
+
+

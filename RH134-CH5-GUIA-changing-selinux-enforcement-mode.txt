@@ -15,7 +15,7 @@ enforcing
 ### editamos el archivo /etc/selinux/config para cambiar el estado de selinux
 $ vim /etc/selinux/config 
 SELINUX=permissive
-|||
+
 ### usamos grep para leer el archivo y confirmar el cambio anterior
 # grep '^SELINUX' /etc/selinux/config
 SELINUX=permissive

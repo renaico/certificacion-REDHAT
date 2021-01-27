@@ -17,3 +17,22 @@ $ less /var/log/messages
 4.- Ejecutamos la sugerencia de sealert
 
 $ sealert -l xxxx...xxx..x.x..xxx
+
+5.- revision de contextos y correciond e errores
+
+## revisamos el contexto de lso diorectorios involucrados 
+
+$ls -Zd /lab-content
+            default_t
+$ ls -Zd /var/www/html
+            httpd_sys_content_t
+
+## creamos una regla de contecto para el direcotrio /lab-content 
+
+$ semanage fcontext -a -t httpd_sys_content_t '/lab-content(/.*)?'
+
+## realizamos el relabel 
+
+$ restorecon -Rfvv /lab-content
+
+6.- Luego de los cambios anteriores podremos abir el sitio http://serverb/lab.html

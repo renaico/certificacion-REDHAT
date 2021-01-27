@@ -1,0 +1,43 @@
+RH134-CH10-GUIA-selecting-the-boot-target
+
+1.- En Workstation abrir un terminal y confirmar que el taregt por defecto es el graphical.target
+
+$ systemctl get-default
+
+2.- En workstation cambiar el target a multi-user.target sin reiniciar (ISOLAR)
+ $ sudo systemctl isolate multi-user.target
+
+3.- loguearse como root en workstation
+$ root
+
+4.- Configuramos el sistema para iniciar por defecto en multi-user.target, reiniciamos y confirmamos
+luego devolver el sistema al target grafico. 
+
+## seteamos el target multi-user
+$ systemctl set-default multi-user.target
+
+### reiniciamos
+$ sudo systemctl reboot
+
+## al volver el sistema notaremos que solo inicio en modo texto.  Loguearse como root y retornar el target
+por defecto al graphical.target
+
+$ systemctl set-default graphical.target
+
+    1.- reiniciamos el sistema
+    $ systemctl reboot
+
+    2.- Interrumpumos el inicio con cualquier tecla menos con ENTER
+
+    3.- Seleccionamos la entrada del kernel que iniciaremos
+
+    4.- presionamos 'e' sobre la entrada del kernel seleccionada
+
+    5.- Movemos el cursos hasta la linea que comienza con la palabra Linux, y nos vamos al fin de dicha linea y agregamos 
+    systemd.unit=recue.target
+
+    6.- presionando las teclas cntrl + x inicamos con dichos cambios
+
+    7.- mount
+
+    8.- cntrl + d 
