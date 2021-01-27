@@ -1,0 +1,28 @@
+RH134-CH10-GUIA-repairing-filesystem-issues
+
+1.- Reinicio
+2.- presionamos cualquier tecla para interrumpir el inicio 
+3.- Elegimos la entrada del bootloader por defecto
+4.- escribimos "e" para editarla 
+5.- nos ubicamos en la liena que comienza con la palabra "Linux"
+6.- al final agregamos systemd.unit=emergency.target
+7.- cntrl + x para bootear con los cambios
+
+8.- nos logueamos en el modo de emergencia como root 
+
+9.- Determinamos cuales filesystems estan correctamente montados 
+$ mount 
+## el filesystemde root esta monstado como solo lectura
+
+10.- Montamos el filesystem de root como lectura/escritura
+$ mount -o remount,rw / 
+
+11.- montamos todos los demas filesystems 
+$ mount -a
+
+12.- editamos el /etc/fstab comentando la linea que esta causando el error
+
+13.- refrescamos systemd para que lea el 'nuevo' /etc/fstab
+$ systemctl daemon-reload
+
+14.- ejecutamos mount -a para confirmar que no hay errores 

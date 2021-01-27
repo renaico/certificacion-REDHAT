@@ -1,0 +1,59 @@
+RH134-CH10-LAB-controlinh-the-boot-process
+
+I.- RESETEAR LA PASSWORD DE ROOT EN SERVERA
+
+1.- Reinicio del sistema
+2.- Interrumpinmos el normal inicio con cualquier tecla excepto enter 
+3.- nos ubicamos en la entrada del bootloader por defecto 
+4.- escribimos "e" para editar
+5.- Ubicamos  la linea que comienza con la palabra "Linux" 
+6.- Al final de esa linea agregamos 'rd.break'
+7.- cntrl + x para bootear con los cambios 
+
+8.- Remontamos sysroot como lectura escritura
+switch_root:/# mount -o remount /sysroot,rw
+switch_root:/# chroot /sysroot
+
+## cambiamos la password del root 
+sh-4.4# passwd root
+...
+...
+
+10.- configuramos el sistema para que haga un relabel completo de selinux antes de reiniciar
+sh-4.4# touch /.autorelabel
+
+II.- EL SERVIDOR TIENE UNA FALLA DE INICIO, UN TRABAJO DE INICIO NO SE ESTA EJECUTANDO COMO CORRESPONDE
+
+1.- Reinicio del sistema
+2.- Interrumpinmos el normal inicio con cualquier tecla excepto enter 
+3.- nos ubicamos en la entrada del bootloader por defecto 
+4.- escribimos "e" para editar
+5.- Ubicamos  la linea que comienza con la palabra "Linux" 
+6.- Al final de esa linea agregamos 'systemd.unit=emergency.target'
+7.- cntrl + x para bootear con los cambios 
+
+8.- nos logueamos como root en el modo de emergencia
+9.- remontamos el filesystem de root como lectura/escritura
+$ mount -o remount,rw /
+
+10.- montamos todo 
+$ mount -a 
+
+11.- editamos el archivo /etc/fstab para resolver el problema (comentando la o las lineas con error)
+
+12.- recargamos systemd para que lea el nuevo /etc/fstab
+
+13.- montamos todo con mount -autorelabel
+
+14.- configuramos el sistema para que haga un relabel completo de selinux antes de reiniciar
+sh-4.4# touch /.autorelabel
+
+15.- reiniciamos 
+$ systemctl reboot
+
+III.- cambiamos el target de serverb de multi-user.target a graphical.target
+
+$ systemctl get-default
+$ systemctl set-default graphical.target
+$ systemctl get-default
+graphical.target
