@@ -1,0 +1,104 @@
+RH134-CH6-LAB-managing-masic-storage
+
+1.- nuevos discos disponibles en serverb
+en el primerro crear una nueva particion llamada backup. debe ser GPT de 2 GB en formato xfs
+
+##Conexion con el servidor, cambio a root
+$ ssh student@servera
+$ sudo -i 
+
+## identificamos los nuevos discos con lsblk
+$ lsblk
+
+## revisamos el disco /dev/vdb con parted 
+$ parted /dev/vdb/ print
+
+## definimos el escquema GPT 
+$ parted /dev/vdb mklabel GPT
+
+## creamos la particion xfs de 2 GB
+$ parted /dev/vdb mkpart backup xfs 2048s 2GB
+
+## confirmamos la creacion de la particion 
+$ parted /dev/vdb print
+
+## registramos la nueva particion 
+$ udevadm settle
+
+2.- Damos formato a la nueva particion y montamos persistentemente en /backup
+## formato
+$ mkfs.xfs /dev/vdb1
+
+## creamos el recurso /backup
+$ mkdir /backup
+
+## obetenemos el UUID de /dev/vdb1
+$ lsblk --fs /dev/vdb1
+UUID=XXXXX
+
+## editamos el /etc/fstab para montar persistentemente la nueva particion en /backup
+
+$ vim /etc/fstab
+## agregamos al final del archivo 
+UUID=XXXXX  /backup     xfs     defaults    0  0 
+
+## forzamos a systemd a leer denuevo el fstab
+$ systemclt daemon-reload
+
+## manualmente montamos /backup y verificamos 
+
+$ mount /backup; mount | grep /backup
+
+3.- en el mismo disco creamos dos particiones GPT de 512MB, llevaran por nombre swap1 y swap2 deben tener el file-systemctl
+adecuado para ser usadas como swap 
+
+## revisamos el disco /dev/vdb para saber donde termina la particion de los pasos anteriores
+$ parted /dev/vdb print
+
+## creamos swap1
+$ parted /dev/vdb mkpart swap1 linux-swap 2000MB 2512MB
+
+## creamos swap2 justo al final de swap1
+$ parted /dev/vdb mkpart swap2 linux-swap 2512MB 3024MB
+
+## verificamos las particiones creadas 
+$ parted /dev/vdb print
+
+## registramos las párticiones recientemenrte creadas
+$ udevadm settle
+
+4..- Iniccializamos las particiones swap1 y swap2 como swap space, swap 2 debe ser preferida por swap1.
+ambas deben ser activadas al inicio del sistema 
+
+## activamos con mkswap
+$ mkswap /deb/vdb2
+$ mkswap /deb/vdb3
+
+## obtenemos los UUID para montar en /etc/fstab
+$ lsblk --fs /dev/vdb
+
+## editamos el /etc/fstab
+$ vim /etc/fstab
+AGREGAMOS AL FINAL 
+
+UUID=XXXXXswap1      swap   swap    pri=20  0   0
+UUID=YYYYYswap2      swap   swap    pri=10  0   0
+
+### forzamos a systemd que re-lea el archivo fstab
+$ systemctl daemon-reload
+
+### activamos y verificamos el estado de los nuevos espacios de swap
+$ swapon -a 
+$ swapon --show
+
+
+### para verificar reiniciamos el sistema y verificamos que se monte el recurso /backup de forma automatica al inicio
+y que las nuevas swap esten funcionando correctamente
+
+$ systemctl reboot
+
+## luego del inicio y logueo como root
+$ mount | grep /backup
+$ swapon --show
+
+

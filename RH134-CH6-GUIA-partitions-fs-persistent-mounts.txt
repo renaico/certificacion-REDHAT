@@ -1,0 +1,54 @@
+RH134-CH6-GUIA-partitions-fs-persistent-mounts
+
+1.- Conexion con el servidor, cambio a root
+$ ssh student@servera
+$ sudo -i 
+
+2.- usando parted crear una nueva label disk  en /dev/vdb, el label debe ser msdos
+$ parted /dev/vdb mklabel msdos
+
+3.- agregar una particion primaria de 1Gb, la particion debe ser en formato xfs y debe comenzar en el sector 2048
+
+$ parted /dev/vdb mkpart primary xfs 2048s 1001MB
+
+4.- Verificar la nueva particion 
+
+$ parted  /dev/vdb print 
+
+5.- registramos la nueva particion 
+
+$ udevadm settle
+
+6.- Realizamops el formato de la particion 
+
+$ mkfs.xfs /dev/vdb1
+
+7.- Montar la nueva particion en /archive
+
+## creamos el punto de montaje
+$ mkdir /archive
+
+## obetenemos el UUID de la pparticion 
+$ lsblk -fs /dev/vdb
+UUID= XXXX
+
+## editamos el /etc/fstab para montar persistentemente el recurso
+
+$ vim /etc/fstab
+## agregamos al final 
+
+
+UUID=XXXX   /archive    xfs     defaults    0 0
+
+### recargamos systemd ara que el kernel tome la nueva entrada en fstab
+$ systemctl daemon-reload
+
+## montamos
+
+$ mount /archive
+
+### verificamos el montaje 
+
+$ mount | grep /archive
+
+8.- Reiniciamos la maquina y verificamos que el montaje sea efectivamente persistente.

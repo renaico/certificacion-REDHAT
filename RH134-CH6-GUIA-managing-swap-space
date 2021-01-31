@@ -1,0 +1,61 @@
+ RH134-CH6-GUIA-managing-swap-space
+
+1.- Conexion con el servidor, cambio a root
+$ ssh student@servera
+$ sudo -i 
+
+2.- usando parted revisamos el disco /dev/vdb
+$ parted /dev/vdb print
+
+3.- agregar una nueva particion de 500Mb para usar como swap, marcar la particion como linux-swap
+$ parted /dev/vdb mkpart myswap linux-swap 1001MB 1501MB
+
+## confirmamos la creacion de la particion 
+$ parted /dev/vdb print
+
+## registramos la nueva particion
+$ udevadm settle
+
+4.-  inicializar la nueva particion como swap 
+$ mkswap /dev/vdb2
+
+5.- habilitamos la nueva swap
+$ swapon --show 
+## revisamos las swap creadas e inicializadas pero que no estan en uso todavia
+
+$ swapon /dev/vdb2
+## habilitamos la nueva swap
+
+## verificamos 
+$ swapon --show
+
+$ swapoff /dev/vdb2
+# deshabilta la swap
+
+## verificamos 
+$ swapon --show 
+
+7.- configuramos la nueva swap para iniciar con el sistema 
+
+## obetenemos el UUID de /dev/vdb2
+$ lsblk -fs /dev/vdb2
+
+## editamos el /etc/fstab para agregar el nuevo espacio swap
+
+$ vim /etc/fstab
+UUID=XXXXX      swap    swap    defaults    0 0 
+
+
+## recargamos systemd 
+$ systemctl daemon-reload
+
+## habilitamos la seap agregada en /etc/fstab
+$ swapon -a
+
+## verificamos reiniciando 
+$ systenctl reboot
+
+
+## luego del reinicio 
+## verificamos 
+$ swapon --show 
