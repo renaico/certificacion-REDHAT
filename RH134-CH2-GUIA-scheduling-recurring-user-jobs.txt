@@ -1,0 +1,31 @@
+RH134-CH2-GUIA-scheduling-recurring-user-jobs
+
+1.- nos conectamos al servera
+$ ssh stident@servera
+
+2.- programar una tarea que adjunte la fecha y hora en el archivo ~/my_first_cron.txt
+debe ejecutarse cada 2 minutos entre las 8 y las 9 pm de lunes a viernes 
+
+## abrimos el editor de cron 
+$ crontab -e
+
+## insertamos el codigo 
+
+*/2 20-21 * * Mon-Fri /usr/bin/date >> ~/my_first_cron.txt
+
+3.-  verificamos la existencia de la area programada 
+
+$ crontab -l 
+*/2 20-21 * * Mon-Fri /usr/bin/date >> ~/my_first_cron.txt
+
+
+4.- Monitoreo 
+## con el comando while ponemos a dormir la cli hasta que el trabajo es ejecutado y lo vemos en tiempo real 
+
+# while ! test -f ~/my_first_cron.txt; do sleep 1s;
+done
+
+con cat verificamos el contenido 
+
+6.- Para remover el cron (en realidad todos los cron)
+$ crontab -r

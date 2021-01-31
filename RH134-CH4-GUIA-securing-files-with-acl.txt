@@ -1,1 +1,34 @@
 RH134-CH4-GUIA-securing-files-with-acl
+
+## operators y consultants deben tener acceso al share en servera /shares/content
+## actualmente solo el grupo operators accede al share, sin embargo el grupo consultants requiere
+acceso completo al recurso
+## el usuario consultant1 mienbro del grupo consultant no debe tener acceso al directorio compartido
+## la idea es agragar las acl apropiadas para que el grupo consultants tenga full acceso,  
+exeptuando al usuario consultant1
+## los cambios deben ser efectivos para los nuevos archivos
+
+1.- Iniciamos sesion en el servera y nos cambiamos a root
+$ ssh student@servera
+$ sudo -i
+
+2.- agregamos las acl correspondientes al directorio /shares/content
+
+## recursivamente otorgamos permisos de lectura, escritura y ejecucion condicional al directorio para el grupo consultants 
+$ setfacl -Rm g:consultants:rwX /shares/content
+
+## resursivamente denegamos todo permiso para el usuario consultant1
+$ setfacl -Rm u:consultant1:- /shares/content
+
+3.- Agregamos la acl por defecto que permitira que los permisos afecten a los archivos nuevos creados en /shares/content
+
+## los permisos por defectos deben ser:
+rwx para el grupo consultants
+
+$ setfacl -m d:g:consultants:rwx /shares/content
+
+## agregamos una default acl que tambien quite todos los permisos al usuario consultant1
+
+$ setfacl -m d:u:consultant1:- /shares/content
+
+

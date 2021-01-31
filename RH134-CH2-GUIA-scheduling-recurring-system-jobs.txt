@@ -1,0 +1,21 @@
+RH134-CH2-GUIA-scheduling-recurring-system-jobs
+
+1.- Conexion con servera como student
+$ ssh student@servera
+
+2.- Cabiamos a root
+#$ sudo -i 
+
+3.- Porgramar una tarea que genere un mensage de log indicando el numero de usuarios activos en el sistema 
+La tarea se debe ejcutar diariamente
+usar w -h | wc -l para el contero de usuarios y logger para la generaciond el log
+
+## creamos el script /etc/cron.daily/usercount
+$ vim /etc/cron.daily/usercount
+
+#!/bin/bash
+USERCOUNT=$(w -h | wc -l)
+logger "tenemos $(USERCOUNT) usuarios conectados"
+
+## entregamos permisos de ejecucion al archivo
+$ chmod a+x /etc/cron.daily/usercount 

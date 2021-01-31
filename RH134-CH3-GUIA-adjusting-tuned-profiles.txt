@@ -1,0 +1,20 @@
+RH134-CH3-GUIA-adjusting-tuned-profiles
+
+1.- Conexion con el servidor
+$ ssh student@servera
+
+2.- revisar que e servicio tuned este instalado y corriendo
+$ yum list tuned 
+## conuslta si lo psquetes de tunes estan instalados 
+
+$ systemctl is-enabled tuned; systemctl is-activetuned
+## para consultar si el servicio de tuned esta corriendo 
+
+3.- listar los perfiles de tuned 
+$ tuned-adm list
+
+4.- cambiar el perfile activo a powersave
+
+$ tuned-adm profile powersave
+$ tuned-adm active
+powersaves

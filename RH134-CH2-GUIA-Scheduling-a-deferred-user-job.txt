@@ -1,0 +1,17 @@
+RH134-CH2-GUIA-Scheduling-a-deferred-user-job
+
+1.- Conexion a servera como student
+$ ssh student@servera
+
+2.- usando at, programar un atarea que se en 3 minutos a partir de la hora actual
+El job debe alamacenarse en el archivo ~/myjob.txt
+
+$ echo "date" >> /home/student/myjob.txt | at now +3min
+
+$ atq 
+## listar los trabajos programados
+
+$ watch atq 
+## cola de trabajos programados, estos van saliandod el listado a medida que son ejecutados 
+
+3.- la opcion g 
