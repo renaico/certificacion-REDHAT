@@ -1,0 +1,37 @@
+RH134-CH4-LAB-controlling-access-to-files-with-acl
+
+1.- /shares/cases en serverb pertenecen al grupo managers
+los nuevos archivos creados en el dir cases automaticamenrte deben pertenecer al grupo managers
+el grupo porpietario debetener permisos de lectura y escritura sobre losa archivos actuales
+otros no debe tener ningun permiso
+
+## nos loeguamos en el serverb y nos cambiamos a root
+$ ssh student@serverb
+$ sudo -i
+
+## entregamos la pripiedad de /shares/cases y todo su contenido (recursivo) al grupo managers
+$ chgrp -R managers /shares/cases
+
+## todos los nuevos archivos y directorios pertenecen al grupo managers
+$ chmod g+s /shares/cases
+
+# actualizamos todos los permisos de los archivos existentes a rw, para el usuario y grupo propietario, 
+otros usuarios no tienen acceso
+$ chmod 660 /shares/cases/*
+
+2.- Agregamos las acl que permitan el acceso de rw sobre los archivos y x sobre los directorios al gruypo contractors
+el usuario contractor3 queda limitado a permisos de r en los archivos y x en los directorios 
+
+## agregamos la acl que otorga los permisos de rw para archivos y x para los directorios al grupo contractors
+$ setfacl -m g:contractors:rwX /shares/cases
+
+## agregamos la acl que limita al usuario contractor3 a lectura en los archivos y ejecucion en los directorios
+$ setfacl -m u:contractor3:rX /shares/cases
+
+3.- acl por defecto, contractors debe terner permimos de rwx (necesario para la creacion y acceso  de subdirectorios)
+contractor3 debe estar restingido a rx (estos permisos son necearios para el acceso a subdirectorios )
+
+$ setfacl -m d:g:contractors:rwx /shares/cases
+$ setfacl -m d:u:contractor3:rx /shares/cases
+
+

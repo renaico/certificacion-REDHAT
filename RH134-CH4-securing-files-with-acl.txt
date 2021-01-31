@@ -1,0 +1,84 @@
+RH13
+4-CH4-securing-files-with-acl
+
+$ setfacl
+## para definir acl 
+
+$ setfacl -m u:user:rw file.txt
+## agrega o modifica la acl para un archivo, en este caso entrega permisos de rw para el usuario user sobre el archivo
+
+-m -> modify 
+-x -> recursivo 
+
+## si el nombre es dejado en blanco, la acl se aplica al owner del archivo 
+
+$ setfacl -m g:name:rw file.txt
+## modifica la acl de archivo para el grupo 'name'
+## si no se especifica un nombre de grupo el cambio se realiza sobre el grupo owner
+
+$ setfacl -m u::rwx,g:consultants:rX,o::- file.txt
+## multiple entradas separadas por coma configuran al usuario con permisos de rwx,
+al grupo consultants con permisos de lectura recursiva y otros sin permisos 
+
+$ getfacl 
+## para ver acl 
+
+## podemos usar getfacl como entreda de setfacl
+$ getfacl file-a.txt | setfacl --set-file=- fileb.txt
+
+## - indica a setfacl que use la salida de getfacl como entrada de setfacl para setear la acl de fileb.txt 
+
+
+##ACL mask 
+
+$ setfacl -m m::r file 
+configura read como maximo permiso para file
+
+## modificaciones recursivas 
+-R acl recursivas sobre un directorio 
+
+$ setfacl -R -m u:name:rX /directorio
+## usuario con permisos de lectura recursiva sobre /directorio
+
+## borrar una acl 
+$ setfacl -x u:name, g:name file
+## elimina la acl de file edfinida para usuario y grupo especificos
+
+$ setfacl -b file 
+## elimina todas las putas acl de file
+
+## acl por defecto (d)
+$ setfacl -m d:u:username:rx /directorio
+## usuario (username) con permisos de lectura y ejecucion sobre directorio y subdirectorios (afecta archivos nuevos) 
+
+$ setfacl -x d:u:username /directorio
+## elimina la acl por defecto 
+
+
+### ejemplos 
+
+$ getfacl /directorio
+## muestra las acl de /directorio
+
+user:renaico:rx file.txt
+## permisos de lectura y ejecucion para el usuario renaico sobre el archivo file.txt
+
+user::rx file 
+## permisos de lectura y ejecucion para el usuario owner de file.txt
+
+g::rw /directorio
+## permisos de lectura y escritura para el grupo owner de /directorio
+
+g::rw file.txt 
+## permisos de lectura y escritura para el grupo propietario de file.txt
+
+group:consultants:rwx /directorio
+## permisos de lectura, escritura y ejecucion para el grupo consultants sobre /directorio
+
+default:m::rx /directorio
+## permisos de lectura y ejecucion seteados como mascara por defecto
+
+default:user:mary:rx /directorio
+## mary permisos de lectura para los archivos nuevos y permisos de lectura y ejecucion para 
+los subdirectorios nuevos 
+

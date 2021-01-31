@@ -42,8 +42,9 @@ $ mount -a
 11.- editamos el archivo /etc/fstab para resolver el problema (comentando la o las lineas con error)
 
 12.- recargamos systemd para que lea el nuevo /etc/fstab
+$ systemctl daemon-reload
 
-13.- montamos todo con mount -autorelabel
+13.- montamos todo con mount -a
 
 14.- configuramos el sistema para que haga un relabel completo de selinux antes de reiniciar
 sh-4.4# touch /.autorelabel
