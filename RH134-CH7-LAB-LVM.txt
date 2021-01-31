@@ -1,0 +1,28 @@
+RH134-CH7-LAB-LVM
+
+##Conexion con el servidor, cambio a root
+$ ssh student@serverb
+$ sudo -i 
+
+## creamos una nueva particion de 512MB, la marcamos como LVM 
+$ parted -s /dev/vdb mkpart primary 514Mib 1026Mib
+$ parted -s /dev/vdb set 2 lvm on 
+
+## registramos la nueva particion 
+$ udevadm settle
+
+## agregamos la nueva particion al PV 
+$ pvcreate /dev/vdb2
+
+## extendemos el VG 
+$ vgextend serverb_01_vg /dev/vdb2
+
+2.- extendemos el LVM a 768M
+
+$ lvextend -L 768Mib /dev/serverb_01_vg/serverb_01_lv 
+
+## usamos xfs_growfs para extender el formato al nuevo espacio del LVM 
+
+$ xfs_growfs /storage/data1
+
+3.- 

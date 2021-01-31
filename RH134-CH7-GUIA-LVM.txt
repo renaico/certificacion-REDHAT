@@ -1,0 +1,74 @@
+RH134-CH7-GUIA-LVM
+
+1.-Conexion con el servidor, cambio a root
+$ ssh student@servera
+$ sudo -i 
+
+2.- Creacion de los recuros fisicos 
+
+## creamos 2 particiones de 256MB con parted, las configuramos como LVM 
+$ parted -s /dev/vdb mklabel gpt 
+$ parted -s /dev/vdb mkpart primary 1MiB 257MiB
+$ parted -s /dev/vdb set 1 lvm on 
+$ parted -s /dev/vdb mkpart primary 258MiB 514MiB
+$ parted -s /dev/vdb set 2 lvm on 
+
+## registramos las nuevas prticiones
+$ udevadm settle
+
+3.- Creamos los PVs
+$ pvcreate /dev/vdb1 /dev/vdb2
+
+4.- creamos el VG llamado servera_01_vg
+$ vgcreate servera_01_vg /dev/vdb1 /dev/vdb2
+
+5.- creamos un LVM de 400M llamado servera_01_lv
+$ lvcreate -n servera_01_lv -L 400M servera_01_vg
+
+6.- Montamos persistentemente
+
+## damos formato al LVM 
+$ mkfs.xfs /dev/servera_01_vg/servera_01_lv
+
+## creamos un punto de montaje
+$ mkdir /data
+
+## editamos el fstab para que se monte automaticamente en cada inicio 
+$ vim /etc/fstab
+agregamos al final 
+/dev/servera_01_vg/servera_01_lv    /data   xfs     defaults    0   0
+
+### forzamos a systemd que re-lea el archivo fstab
+$ systemctl daemon-reload
+
+## montamos 
+$ mount /data
+
+8.- revision y comprobacion 
+
+### copiamos archivos al nuevo arreglo 
+$ cp -a /etc/*.conf /data
+ls /data | wc -l
+
+## listamos las partiones del disco fisico 
+$ oarted /dev/vdb list 
+
+### revisamos los pv
+$ pvdisplay /dev/vdb2
+
+## revisamos el vg 
+$ vgdisplay servera_01_vg
+
+## revisamos el LVM 
+$ lvdisplay /dev/servera_01_vg/servera_01_lv
+
+## revisamos los montajes 
+$ mount 
+
+## finalemnte revisamos el especio de /data
+$ df -h /data
+
+
+
+
+ 

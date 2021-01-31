@@ -1,0 +1,40 @@
+RH134-CH7-GUIA-extending-lvm
+
+##Conexion con el servidor, cambio a root
+$ ssh student@servera
+$ sudo -i 
+
+3.- inspeccionamos el VG para deterinar si hay espacion duficiente para extender el volumen LVM
+$ vgdisplay servera_01_vg
+## el vg tiene un tamaño de 500MB de los cuales se ocupo 400M en el LVM del anterior ejercicio 
+## solo hay 100MB app disponibles en servera_01_vg
+
+$ df -h /data
+
+4.- creamos los recursos fisicos 
+
+## usando parted creamos una particion adicional de 512 Mb, debe ser configurada como LVM
+$ parted -s /dev/vdb mkpart primary 515MiB 1027MiB
+$ partes -s /dev/vdb set 3 lvm on 
+
+## registramos la nueva particion 
+# udevadm settle
+
+5.- agragamos la nueva particion como pv
+$ pvcreate /dev/vdb3
+
+6.- extendemos el VG
+$ vgextend servera_01_vg /dev/vdb3
+
+### revisamos el vg para comprobar el nuevo espacio 
+$ vgdisplay servera_01_vg
+
+
+7.- usando lvextend extendemos el tamaño total de lVM 
+$ lvextend -L 700M /dev/servera_01_vg/servera_01_lv
+
+8.- usamos xfx_growfs para extender el formato al nuevo espacio en el LVM
+$ xfs_growfs /data
+
+9.- Comprobamos el nuevo espacio en el recurso 
+$ df -h /data
