@@ -25,4 +25,31 @@ $ lvextend -L 768Mib /dev/serverb_01_vg/serverb_01_lv
 
 $ xfs_growfs /storage/data1
 
-3.- 
+3.- en el vg existente crear un nuevo lvm llamado serverb_02_lv de 128 MiB 
+en formsato xfs y montado persistentemente en /storage/data2
+
+## Crear el lvm de 128MiB 
+
+$ lvcreate -n serverb_02_lv -L 128MiB serverb_01_vg
+
+## Damos formato xfs al nuevo Lvm 
+$ mkfs.xfs /dev/serverb_01_vg/serverb_02_lv
+
+## creamos el punto de montaje 
+$ mkdir /storage/data2
+
+## Editamos el fstab para montar persistentemente el lvm en el recurso /storage/data2
+
+$ vim /etc/fstab
+# agregamos al final:
+
+/dev/serverb_01_vg/serverb_02_lv    /storage/data2  xfs defaults 1  2 
+
+## forzamos a systemd para que relea /etc/fstab
+$ systemctl daemon-reload
+
+## montamos 
+$ mount /storage/data2
+
+reiniciamos para comprobar que todo funciona 
+
