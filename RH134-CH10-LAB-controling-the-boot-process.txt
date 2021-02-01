@@ -11,7 +11,7 @@ I.- RESETEAR LA PASSWORD DE ROOT EN SERVERA
 7.- cntrl + x para bootear con los cambios 
 
 8.- Remontamos sysroot como lectura escritura
-switch_root:/# mount -o remount /sysroot,rw
+switch_root:/# mount -o remount,rw /sysroot
 switch_root:/# chroot /sysroot
 
 ## cambiamos la password del root 

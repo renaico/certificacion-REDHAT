@@ -40,7 +40,7 @@ $ systemctl restart httpd.service
 $ curl http://servera:82
 
 6.-  Abrimos el puerto indicado 
-$ firewall-cmd --add-port=/tcp --permanent
+$ firewall-cmd --add-port=82/tcp --permanent
 
 $ firewall-cmd --reload
 
